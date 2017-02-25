@@ -4,6 +4,7 @@
   "private": true,
   "devDependencies": {
     "autoprefixer-stylus": "^0.13.0",
+    "concurrently": "^3.3.0",
     "react-scripts": "0.9.0",
     "stylus": "^0.54.5"
   },
