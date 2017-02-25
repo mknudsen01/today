@@ -4,8 +4,12 @@ import './css/styles.css';
 class App extends Component {
   render() {
     return (
-      <div>
-        Today daily tracker
+      <div className="container">
+        <div className="row row--center">
+          <div className="col">
+            Today daily tracker
+          </div>
+        </div>
       </div>
     );
   }
