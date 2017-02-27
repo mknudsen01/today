@@ -20,5 +20,8 @@
     "styles": "stylus -u autoprefixer-stylus ./src/css/styles.styl -o ./src/css/styles.css",
     "styles:watch": "stylus -u autoprefixer-stylus -w ./src/css/styles.styl -o ./src/css/styles.css",
     "watch": "concurrently --names 'webpack, stylus' --prefix name 'npm run start' 'npm run styles:watch'"
+  },
+  "eslintConfig": {
+    "extends": "node_modules/react-scripts/config/eslint.js"
   }
 }
