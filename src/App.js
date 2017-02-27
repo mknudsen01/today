@@ -34,6 +34,17 @@ class App extends Component {
     })
   }
 
+  addActivity(text) {
+    const now = moment().format('x');
+    this.setState({
+      activitiesByTimestamp: {
+        ...this.state.activitiesByTimestamp,
+        [now]: { text },
+      },
+      activityTimestamps: [...this.state.activityTimestamps, now]
+    })
+  }
+
   render() {
     const { activitiesByTimestamp, activityTimestamps } = this.state;
     return (
