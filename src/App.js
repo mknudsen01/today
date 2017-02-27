@@ -68,7 +68,7 @@ class App extends Component {
   }
 
   render() {
-    const { activitiesByTimestamp, activityTimestamps, currentDay } = this.state;
+    const { activitiesByTimestamp, currentDay } = this.state;
     return (
       <div className="container">
         <div className="row row--center">
@@ -85,7 +85,7 @@ class App extends Component {
           </div>
         </div>
         {
-          activityTimestamps
+          this.getCurrentDayTimestamps()
             .sort()
             .reverse()
             .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
