@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import moment from 'moment';
+
 import './css/styles.css';
 
 import sampleActivities from './sampleActivities';
@@ -19,7 +21,7 @@ class App extends Component {
   renderActivity(timestamp,activity) {
     return (
       <div key={timestamp} className="row">
-        <p>{timestamp}</p>
+        <p>{moment(parseInt(timestamp, 10)).format('MMMM DD, YYYY')}</p>
         <p>{activity.text}</p>
       </div>
     )
@@ -33,7 +35,7 @@ class App extends Component {
   }
 
   render() {
-    const { activitiesByTimestamp } = this.state;
+    const { activitiesByTimestamp, activityTimestamps } = this.state;
     return (
       <div className="container">
         <div className="row row--center">
@@ -47,8 +49,9 @@ class App extends Component {
           </div>
         </div>
         {
-          Object
-            .keys(activitiesByTimestamp)
+          activityTimestamps
+            .sort()
+            .reverse()
             .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
         }
       </div>
