@@ -16,12 +16,13 @@ class App extends Component {
   state = {
     activitiesByTimestamp: {},
     activityTimestamps: [],
+    currentDay: moment().startOf('day')
   };
 
   renderActivity(timestamp,activity) {
     return (
       <div key={timestamp} className="row">
-        <p>{moment(parseInt(timestamp, 10)).format('MMMM DD, YYYY')}</p>
+        <p>{moment(+timestamp).format('MMMM DD, YYYY')}</p>
         <p>{activity.text}</p>
       </div>
     )
@@ -45,14 +46,38 @@ class App extends Component {
     })
   }
 
+  choosePreviousDay() {
+    this.setState({
+      currentDay: this.state.currentDay.subtract(1, 'day')
+    })
+  }
+
+  chooseNextDay() {
+    this.setState({
+      currentDay: this.state.currentDay.add(1, 'day')
+    })
+  }
+
+  getCurrentDayTimestamps() {
+    const { currentDay, activityTimestamps } = this.state;
+    const start = +currentDay.startOf('day');
+    const end = +currentDay.endOf('day');
+
+    return activityTimestamps
+      .filter( timestamp => start <= +timestamp && timestamp <= end)
+  }
+
   render() {
-    const { activitiesByTimestamp, activityTimestamps } = this.state;
+    const { activitiesByTimestamp, activityTimestamps, currentDay } = this.state;
     return (
       <div className="container">
         <div className="row row--center">
           <div className="col">
             Today daily tracker
           </div>
+        </div>
+        <div className="row row--center">
+          current day: {currentDay.format('MMMM DD, YYYY')}
         </div>
         <div className="row row--center">
           <div className="col--3">
