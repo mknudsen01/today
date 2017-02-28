@@ -90,6 +90,15 @@ class App extends Component {
           current day: {currentDay.format('MMMM DD, YYYY')}
         </div>
         <div className="row row--center">
+          <form
+            onSubmit={(e) => this.createActivity(e)}
+            ref={(input) => this.activityForm = input}
+          >
+            <input type="text" ref={(node) => this.description = node} placeholder="went to the park" />
+            <button type="submit">Add activity</button>
+          </form>
+        </div>
+        <div className="row row--center">
           <div className="col--3">
             <button onClick={this.loadSampleActivities}>Load sample activities</button>
           </div>
