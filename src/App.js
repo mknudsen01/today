@@ -37,14 +37,20 @@ class App extends Component {
     })
   }
 
+  getUnusedTimestamp() {
+    const currentDayTimestamps = this.getCurrentDayTimestamps();
+    const latestTimestamp = +currentDayTimestamps.slice(-1) || +this.state.currentDay.startOf('day');
+    return `${latestTimestamp + 1}`;
+  }
+
   addActivity(activity) {
-    const now = moment().format('x');
+    const timestamp = this.getUnusedTimestamp();
     this.setState({
       activitiesByTimestamp: {
         ...this.state.activitiesByTimestamp,
-        [now]: activity,
+        [timestamp]: activity,
       },
-      activityTimestamps: [...this.state.activityTimestamps, now]
+      activityTimestamps: [...this.state.activityTimestamps, timestamp]
     })
   }
 
