@@ -23,7 +23,7 @@ class App extends Component {
     return (
       <div key={timestamp} className="row">
         <p>{moment(+timestamp).format('MMMM DD, YYYY')}</p>
-        <p>{activity.text}</p>
+        <p>{activity.description}</p>
       </div>
     )
   }
