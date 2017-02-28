@@ -35,12 +35,12 @@ class App extends Component {
     })
   }
 
-  addActivity(text) {
+  addActivity(activity) {
     const now = moment().format('x');
     this.setState({
       activitiesByTimestamp: {
         ...this.state.activitiesByTimestamp,
-        [now]: { text },
+        [now]: activity,
       },
       activityTimestamps: [...this.state.activityTimestamps, now]
     })
