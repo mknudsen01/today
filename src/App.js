@@ -58,6 +58,16 @@ class App extends Component {
     })
   }
 
+  createActivity(e) {
+    e.preventDefault();
+    const activity = {
+       description: this.description.value,
+    }
+
+    this.addActivity(activity);
+    this.activityForm.reset();
+  }
+
   getCurrentDayTimestamps() {
     const { currentDay, activityTimestamps } = this.state;
     const start = +currentDay.startOf('day');
