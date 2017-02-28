@@ -11,6 +11,8 @@ class App extends Component {
     super(props);
 
     this.loadSampleActivities = this.loadSampleActivities.bind(this);
+    this.choosePreviousDay = this.choosePreviousDay.bind(this);
+    this.chooseNextDay = this.chooseNextDay.bind(this);
   }
 
   state = {
@@ -87,7 +89,21 @@ class App extends Component {
           </div>
         </div>
         <div className="row row--center">
-          current day: {currentDay.format('MMMM DD, YYYY')}
+          <div
+            className="col--2"
+            onClick={this.choosePreviousDay}
+          >
+            <span className="underline pointer">Previous day</span>
+          </div>
+          <div className="col--2">
+            {currentDay.format('MMMM DD, YYYY')}
+          </div>
+          <div
+            className="col--2"
+            onClick={this.chooseNextDay}
+          >
+            <span className="underline pointer">Next day</span>
+          </div>
         </div>
         <div className="row row--center">
           <form
