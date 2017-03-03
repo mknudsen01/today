@@ -13,8 +13,6 @@ class AddActivityForm extends Component {
   }
 
   render() {
-    const { addActivity } = this.props;
-
     return (
       <form
         onSubmit={(e) => this.createActivity(e)}
