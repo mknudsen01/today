@@ -3,8 +3,6 @@ import moment from 'moment';
 
 import '../css/styles.css';
 
-import sampleActivities from '../sampleActivities';
-
 import Activity from './Activity';
 import AddActivityForm from './AddActivityForm';
 
@@ -15,7 +13,6 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.loadSampleActivities = this.loadSampleActivities.bind(this);
     this.choosePreviousDay = this.choosePreviousDay.bind(this);
     this.chooseNextDay = this.chooseNextDay.bind(this);
     this.deleteActivity = this.deleteActivity.bind(this);
@@ -37,13 +34,6 @@ class App extends Component {
         deleteActivity={this.deleteActivity}
       />
     )
-  }
-
-  loadSampleActivities() {
-    this.setState({
-      activityTimestamps: Object.keys(sampleActivities),
-      activitiesByTimestamp: sampleActivities,
-    })
   }
 
   getUnusedTimestamp() {
@@ -124,11 +114,6 @@ class App extends Component {
           <AddActivityForm
             addActivity={this.addActivity}
           />
-        </div>
-        <div className="row row--center">
-          <div className="col--3">
-            <button onClick={this.loadSampleActivities}>Load sample activities</button>
-          </div>
         </div>
         <div>
           {
