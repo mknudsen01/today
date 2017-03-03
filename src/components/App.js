@@ -89,48 +89,52 @@ class App extends Component {
     return (
       <div className="container">
         <div className="row row--center">
-          <div className="col">
-            Today daily tracker
-          </div>
-        </div>
-        <div className="row row--center">
-          <div
-            className="col--2"
-            onClick={this.choosePreviousDay}
-          >
-            <span className="underline pointer">Previous day</span>
-          </div>
-          <div className="col--2">
-            {currentDay.format('MMMM DD, YYYY')}
-          </div>
-          <div
-            className="col--2"
-            onClick={this.chooseNextDay}
-          >
-            <span className="underline pointer">Next day</span>
-          </div>
-        </div>
-        <div className="row row--center">
-          <AddActivityForm
-            addActivity={this.addActivity}
-          />
-        </div>
-        <div>
-          {
-            <CSSTransitionGroup
-              component="div"
-              transitionName="activity"
-              transitionEnterTimeout={500}
-              transitionLeaveTimeout={500}
-            >
+          <div className="col--6">
+            <div className="row row--center">
+              <div className="col">
+                Today daily tracker
+              </div>
+            </div>
+            <div className="row row--center">
+              <div
+                className="col--4"
+                onClick={this.choosePreviousDay}
+              >
+                <span className="underline pointer">Previous day</span>
+              </div>
+              <div className="col--4">
+                {currentDay.format('MMMM DD, YYYY')}
+              </div>
+              <div
+                className="col--4"
+                onClick={this.chooseNextDay}
+              >
+                <span className="underline pointer">Next day</span>
+              </div>
+            </div>
+            <div className="row row--center">
+              <AddActivityForm
+                addActivity={this.addActivity}
+              />
+            </div>
+            <div className="mt">
               {
-                this.getCurrentDayTimestamps()
-                  .sort()
-                  .reverse()
-                  .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
+                <CSSTransitionGroup
+                  component="div"
+                  transitionName="activity"
+                  transitionEnterTimeout={500}
+                  transitionLeaveTimeout={500}
+                >
+                  {
+                    this.getCurrentDayTimestamps()
+                      .sort()
+                      .reverse()
+                      .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
+                  }
+                </CSSTransitionGroup>
               }
-            </CSSTransitionGroup>
-          }
+            </div>
+          </div>
         </div>
       </div>
     );
