@@ -8,12 +8,11 @@ class Activity extends Component {
 
     return (
       <div className="row row--middle">
-        <div className="col--2">
-          <p>{moment(+timestamp).format('MMMM DD, YYYY')}</p>
-        </div>
         <div className="col--4">
-          <span>{activity.description}</span>
-          <span className="pl" onClick={() => deleteActivity(timestamp)}>Delete</span>
+          <p>
+            {activity.description}
+            <span className="pl" onClick={() => deleteActivity(timestamp)}>Delete</span>
+          </p>
         </div>
       </div>
     );
