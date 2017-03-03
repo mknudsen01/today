@@ -54,6 +54,16 @@ class App extends Component {
     })
   }
 
+  deleteActivity(timestamp) {
+    const activitiesByTimestamp = {...this.state.activitiesByTimestamp};
+    activitiesByTimestamp[timestamp] = null;
+
+    this.setState({
+      activitiesByTimestamp,
+      activityTimestamps: this.state.activityTimestamps.filter(stamp => timestamp !== stamp)
+    })
+  }
+
   choosePreviousDay() {
     this.setState({
       currentDay: this.state.currentDay.subtract(1, 'day')
