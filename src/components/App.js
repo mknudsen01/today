@@ -5,6 +5,8 @@ import '../css/styles.css';
 
 import sampleActivities from '../sampleActivities';
 
+import Activity from './Activity';
+
 class App extends Component {
 
   constructor(props) {
@@ -13,6 +15,7 @@ class App extends Component {
     this.loadSampleActivities = this.loadSampleActivities.bind(this);
     this.choosePreviousDay = this.choosePreviousDay.bind(this);
     this.chooseNextDay = this.chooseNextDay.bind(this);
+    this.deleteActivity = this.deleteActivity.bind(this);
   }
 
   state = {
@@ -23,16 +26,12 @@ class App extends Component {
 
   renderActivity(timestamp,activity) {
     return (
-      <div key={timestamp} className="row row--middle">
-        <div className="col--2">
-          <p>{moment(+timestamp).format('MMMM DD, YYYY')}</p>
-        </div>
-        <div className="col--4">
-          <span>{activity.description}</span>
-          <span className="pl" onClick={() => this.deleteActivity(timestamp)}>Delete</span>
-        </div>
-
-      </div>
+      <Activity
+        key={`activity-${timestamp}`}
+        timestamp={timestamp}
+        activity={activity}
+        deleteActivity={this.deleteActivity}
+      />
     )
   }
 
