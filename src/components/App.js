@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 
-import './css/styles.css';
+import '../css/styles.css';
 
-import sampleActivities from './sampleActivities';
+import sampleActivities from '../sampleActivities';
 
 class App extends Component {
 
