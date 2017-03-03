@@ -6,6 +6,7 @@ import '../css/styles.css';
 import sampleActivities from '../sampleActivities';
 
 import Activity from './Activity';
+import AddActivityForm from './AddActivityForm';
 
 class App extends Component {
 
@@ -16,6 +17,7 @@ class App extends Component {
     this.choosePreviousDay = this.choosePreviousDay.bind(this);
     this.chooseNextDay = this.chooseNextDay.bind(this);
     this.deleteActivity = this.deleteActivity.bind(this);
+    this.addActivity = this.addActivity.bind(this);
   }
 
   state = {
@@ -81,16 +83,6 @@ class App extends Component {
     })
   }
 
-  createActivity(e) {
-    e.preventDefault();
-    const activity = {
-       description: this.description.value,
-    }
-
-    this.addActivity(activity);
-    this.activityForm.reset();
-  }
-
   getCurrentDayTimestamps() {
     const { currentDay, activityTimestamps } = this.state;
     const start = +currentDay.startOf('day');
@@ -127,13 +119,9 @@ class App extends Component {
           </div>
         </div>
         <div className="row row--center">
-          <form
-            onSubmit={(e) => this.createActivity(e)}
-            ref={(input) => this.activityForm = input}
-          >
-            <input type="text" ref={(node) => this.description = node} placeholder="went to the park" />
-            <button type="submit">Add activity</button>
-          </form>
+          <AddActivityForm
+            addActivity={this.addActivity}
+          />
         </div>
         <div className="row row--center">
           <div className="col--3">
