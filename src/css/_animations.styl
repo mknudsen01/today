@@ -1,0 +1,17 @@
+.activity-enter
+  transition all 0.5s
+  transform translateX(-120%)
+  max-height 0
+  &.activity-enter-active
+    max-height 50px
+    transform translateX(0)
+
+
+.activity-leave
+  transition all 0.5s
+  opacity 1
+  max-height 50px
+  &.activity-leave-active
+    opacity 0
+    max-height 0
+    color red

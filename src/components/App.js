@@ -8,6 +8,8 @@ import sampleActivities from '../sampleActivities';
 import Activity from './Activity';
 import AddActivityForm from './AddActivityForm';
 
+import CSSTransitionGroup from 'react-addons-css-transition-group';
+
 class App extends Component {
 
   constructor(props) {
@@ -128,12 +130,23 @@ class App extends Component {
             <button onClick={this.loadSampleActivities}>Load sample activities</button>
           </div>
         </div>
-        {
-          this.getCurrentDayTimestamps()
-            .sort()
-            .reverse()
-            .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
-        }
+        <div>
+          {
+            <CSSTransitionGroup
+              component="div"
+              transitionName="activity"
+              transitionEnterTimeout={500}
+              transitionLeaveTimeout={500}
+            >
+              {
+                this.getCurrentDayTimestamps()
+                  .sort()
+                  .reverse()
+                  .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
+              }
+            </CSSTransitionGroup>
+          }
+        </div>
       </div>
     );
   }
