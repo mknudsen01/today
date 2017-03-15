@@ -13,6 +13,14 @@
 .pr
   padding-right var(--gutter-width, 1rem)
 
+.pv
+  padding-top var(--gutter-width, 1rem)
+  padding-bottom var(--gutter-width, 1rem)
+
+.ph
+  padding-left var(--gutter-width, 1rem)
+  padding-right var(--gutter-width, 1rem)
+
 
 @css {
   .p\+  { padding: calc(var(--gutter-width, 1rem) * 2); }
@@ -20,12 +28,28 @@
   .pb\+ { padding-bottom: calc(var(--gutter-width, 1rem) * 2); }
   .pl\+ { padding-left: calc(var(--gutter-width, 1rem) * 2); }
   .pr\+ { padding-right: calc(var(--gutter-width, 1rem) * 2); }
+  .pv\+ {
+    padding-top: calc(var(--gutter-width, 1rem) * 2);
+    padding-bottom: calc(var(--gutter-width, 1rem) * 2);
+  }
+  .ph\+ {
+    padding-left: calc(var(--gutter-width, 1rem) * 2);
+    padding-right: calc(var(--gutter-width, 1rem) * 2);
+  }
 
   .p\+\+  { padding: calc(var(--gutter-width, 1rem) * 4); }
   .pt\+\+ { padding-top: calc(var(--gutter-width, 1rem) * 4); }
   .pb\+\+ { padding-bottom: calc(var(--gutter-width, 1rem) * 4); }
   .pl\+\+ { padding-left: calc(var(--gutter-width, 1rem) * 4); }
   .pr\+\+ { padding-right: calc(var(--gutter-width, 1rem) * 4); }
+  .pv\+\+ {
+    padding-top: calc(var(--gutter-width, 1rem) * 4);
+    padding-bottom: calc(var(--gutter-width, 1rem) * 4);
+  }
+  .ph\+\+ {
+    padding-left: calc(var(--gutter-width, 1rem) * 4);
+    padding-right: calc(var(--gutter-width, 1rem) * 4);
+  }
 }
 
 .p-
@@ -43,6 +67,14 @@
 .pr-
   padding-right calc(var(--gutter-width, 1rem) / 2)
 
+.pv-
+  padding-top calc(var(--gutter-width, 1rem) / 2)
+  padding-bottom calc(var(--gutter-width, 1rem) / 2)
+
+.ph-
+  padding-left calc(var(--gutter-width, 1rem) / 2)
+  padding-right calc(var(--gutter-width, 1rem) / 2)
+
 .p--
   padding calc(var(--gutter-width, 1rem) / 4)
 
@@ -56,4 +88,12 @@
   padding-left calc(var(--gutter-width, 1rem) / 4)
 
 .pr--
+  padding-right calc(var(--gutter-width, 1rem) / 4)
+
+.pv--
+  padding-top calc(var(--gutter-width, 1rem) / 4)
+  padding-bottom calc(var(--gutter-width, 1rem) / 4)
+
+.ph--
+  padding-left calc(var(--gutter-width, 1rem) / 4)
   padding-right calc(var(--gutter-width, 1rem) / 4)

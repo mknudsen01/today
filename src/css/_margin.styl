@@ -13,6 +13,14 @@
 .mr
   margin-right var(--gutter-width, 1rem)
 
+.mv
+  margin-top var(--gutter-width, 1rem)
+  margin-bottom var(--gutter-width, 1rem)
+
+.mh
+  margin-left var(--gutter-width, 1rem)
+  margin-right var(--gutter-width, 1rem)
+
 
 @css {
   .m\+  { margin: calc(var(--gutter-width, 1rem) * 2); }
@@ -20,12 +28,29 @@
   .mb\+ { margin-bottom: calc(var(--gutter-width, 1rem) * 2); }
   .ml\+ { margin-left: calc(var(--gutter-width, 1rem) * 2); }
   .mr\+ { margin-right: calc(var(--gutter-width, 1rem) * 2); }
+  .mv\+ {
+    margin-top: calc(var(--gutter-width, 1rem) * 2);
+    margin-bottom: calc(var(--gutter-width, 1rem) * 2);
+  }
+  .mh\+ {
+    margin-left: calc(var(--gutter-width, 1rem) * 2);
+    margin-right: calc(var(--gutter-width, 1rem) * 2);
+  }
+
 
   .m\+\+  { margin: calc(var(--gutter-width, 1rem) * 4); }
   .mt\+\+ { margin-top: calc(var(--gutter-width, 1rem) * 4); }
   .mb\+\+ { margin-bottom: calc(var(--gutter-width, 1rem) * 4); }
   .ml\+\+ { margin-left: calc(var(--gutter-width, 1rem) * 4); }
   .mr\+\+ { margin-right: calc(var(--gutter-width, 1rem) * 4); }
+  .mv\+\+ {
+    margin-top: calc(var(--gutter-width, 1rem) * 4);
+    margin-bottom: calc(var(--gutter-width, 1rem) * 4);
+  }
+  .mh\+\+ {
+    margin-left: calc(var(--gutter-width, 1rem) * 4);
+    margin-right: calc(var(--gutter-width, 1rem) * 4);
+  }
 }
 
 .m-
@@ -43,6 +68,14 @@
 .mr-
   margin-right calc(var(--gutter-width, 1rem) / 2)
 
+.mv-
+  margin-top calc(var(--gutter-width, 1rem) / 2)
+  margin-bottom calc(var(--gutter-width, 1rem) / 2)
+
+.mh-
+  margin-left calc(var(--gutter-width, 1rem) / 2)
+  margin-right calc(var(--gutter-width, 1rem) / 2)
+
 .m--
   margin calc(var(--gutter-width, 1rem) / 4)
 
@@ -56,4 +89,12 @@
   margin-left calc(var(--gutter-width, 1rem) / 4)
 
 .mr--
+  margin-right calc(var(--gutter-width, 1rem) / 4)
+
+.mv--
+  margin-top calc(var(--gutter-width, 1rem) / 4)
+  margin-bottom calc(var(--gutter-width, 1rem) / 4)
+
+.mh--
+  margin-left calc(var(--gutter-width, 1rem) / 4)
   margin-right calc(var(--gutter-width, 1rem) / 4)
