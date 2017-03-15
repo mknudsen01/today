@@ -4,20 +4,26 @@ import moment from 'moment';
 class Activity extends Component {
 
   render() {
-    const { timestamp, activity, deleteActivity } = this.props;
+    const { timestamp, activity, deleteActivity, editActivity } = this.props;
 
     return (
-      <div className="row row--middle">
-        <div className="col--4 col--start">
-          <div className="pv-">
+      <div className="row row--middle row--start">
+        <div className="col flex align-items--center">
+          <div className="flex">
             {activity.description}
-            <span
-              className="cursor--pointer ml p- color-red--hover"
-              onClick={() => deleteActivity(timestamp)}
-            >
-              &times;
-            </span>
           </div>
+          <span
+            className="flex cursor--pointer font--12 ml p- color--blue"
+            onClick={() => editActivity(timestamp)}
+          >
+            edit
+          </span>
+          <span
+            className="flex cursor--pointer ml-- p- color-red"
+            onClick={() => deleteActivity(timestamp)}
+          >
+            &times;
+          </span>
         </div>
       </div>
     );
