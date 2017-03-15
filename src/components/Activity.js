@@ -9,10 +9,15 @@ class Activity extends Component {
     return (
       <div className="row row--middle">
         <div className="col--4">
-          <p>
+          <div className="pv-">
             {activity.description}
-            <span className="pl" onClick={() => deleteActivity(timestamp)}>Delete</span>
-          </p>
+            <span
+              className="cursor--pointer ml p- color-red--hover"
+              onClick={() => deleteActivity(timestamp)}
+            >
+              &times;
+            </span>
+          </div>
         </div>
       </div>
     );
