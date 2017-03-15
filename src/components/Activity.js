@@ -8,7 +8,7 @@ class Activity extends Component {
 
     return (
       <div className="row row--middle">
-        <div className="col--4">
+        <div className="col--4 col--start">
           <div className="pv-">
             {activity.description}
             <span

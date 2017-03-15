@@ -90,12 +90,12 @@ class App extends Component {
       <div className="container">
         <div className="row row--center">
           <div className="col--6">
-            <div className="row row--center">
+            <div className="row pt+">
               <div className="col">
                 Today daily tracker
               </div>
             </div>
-            <div className="row row--center">
+            <div className="row pv">
               <div
                 className="col--4"
                 onClick={this.choosePreviousDay}
@@ -112,7 +112,7 @@ class App extends Component {
                 <span className="underline pointer">Next day</span>
               </div>
             </div>
-            <div className="row row--center">
+            <div className="row row--center pv">
               <AddActivityForm
                 addActivity={this.addActivity}
               />
