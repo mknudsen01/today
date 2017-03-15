@@ -1,6 +1,16 @@
+:root {
+  --gutter-width: 1rem;
+  --outer-margin: 2rem;
+  --gutter-compensation: calc((var(--gutter-width) * 0.5) * -1);
+  --half-gutter-width: calc((var(--gutter-width) * 0.5));
+  --double-gutter-width: calc((var(--gutter-width) * 2.0));
+}
+
 @require './_normalize.styl'
 @require './_grid.styl'
 @require './_animations.styl'
+@require './_margin.styl'
+@require './_padding.styl'
 
 body
   -webkit-font-smoothing antialiased
@@ -11,8 +21,9 @@ body
 .pointer
   cursor pointer
 
-.pl
-  padding-left 16px
+.cursor--pointer
+  cursor pointer
 
-.mt
-  margin-top 16px
+.color-red--hover:hover
+  color red
+
