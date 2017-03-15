@@ -28,6 +28,7 @@ Activity.propTypes = {
   timestamp: PropTypes.string.isRequired,
   activity: PropTypes.object.isRequired,
   deleteActivity: PropTypes.func.isRequired,
+  editActivity: PropTypes.func.isRequired,
 }
 
 export default Activity;

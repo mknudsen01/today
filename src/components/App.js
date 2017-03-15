@@ -5,6 +5,7 @@ import '../css/styles.css';
 
 import Activity from './Activity';
 import AddActivityForm from './AddActivityForm';
+import EditActivityForm from './EditActivityForm';
 
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -17,22 +18,54 @@ class App extends Component {
     this.chooseNextDay = this.chooseNextDay.bind(this);
     this.deleteActivity = this.deleteActivity.bind(this);
     this.addActivity = this.addActivity.bind(this);
+    this.editActivity = this.editActivity.bind(this);
+    this.updateActivity = this.updateActivity.bind(this);
+    this.cancelEdit = this.cancelEdit.bind(this);
   }
 
   state = {
     activitiesByTimestamp: {},
     activityTimestamps: [],
-    currentDay: moment().startOf('day')
+    currentDay: moment().startOf('day'),
+    editingActivityTimestamp: null,
   };
 
   renderActivity(timestamp,activity) {
-    return (
+    const { editingActivityTimestamp } = this.state;
+    const activityElement = (
       <Activity
-        key={`activity-${timestamp}`}
+        key={`activity-display-${timestamp}`}
         timestamp={timestamp}
         activity={activity}
         deleteActivity={this.deleteActivity}
+        editActivity={this.editActivity}
+        isEditing={editingActivityTimestamp === timestamp}
       />
+    );
+
+    return (
+      <div key={`activity-${timestamp}`}>
+        <CSSTransitionGroup
+          component="div"
+          transitionName="activity-edit-form"
+          transitionEnterTimeout={500}
+          transitionLeaveTimeout={500}
+        >
+          {activityElement}
+          {
+            editingActivityTimestamp === timestamp && (
+              <EditActivityForm
+                key={`edit-activity-${timestamp}`}
+                activity={activity}
+                timestamp={timestamp}
+                cancelEdit={this.cancelEdit}
+                updateActivity={this.updateActivity}
+              />
+            )
+          }
+
+        </CSSTransitionGroup>
+      </div>
     )
   }
 
@@ -53,6 +86,22 @@ class App extends Component {
     })
   }
 
+  updateActivity(activity) {
+    const { timestamp } = activity;
+    this.setState({
+      activitiesByTimestamp: {
+        ...this.state.activitiesByTimestamp,
+        [timestamp]: activity,
+      },
+    })
+  }
+
+  cancelEdit() {
+    this.setState({
+      editingActivityTimestamp: null,
+    })
+  }
+
   deleteActivity(timestamp) {
     const activitiesByTimestamp = {...this.state.activitiesByTimestamp};
     activitiesByTimestamp[timestamp] = null;
@@ -60,6 +109,12 @@ class App extends Component {
     this.setState({
       activitiesByTimestamp,
       activityTimestamps: this.state.activityTimestamps.filter(stamp => timestamp !== stamp)
+    })
+  }
+
+  editActivity(timestamp) {
+    this.setState({
+      editingActivityTimestamp: timestamp
     })
   }
 

@@ -15,3 +15,24 @@
     opacity 0
     max-height 0
     color red
+
+
+
+.activity-edit-form-enter
+  transition all 0.5s
+  transform translateY(-120%)
+  max-height 0
+  &.activity-edit-form-enter-active
+    max-height 18px
+    transform translateY(0)
+
+
+.activity-edit-form-leave
+  transition all 0.5s
+  opacity 1
+  transform translateY(0)
+  max-height 18px
+  &.activity-edit-form-leave-active
+    opacity 0
+    max-height 0
+    transform translateY(-120%)
