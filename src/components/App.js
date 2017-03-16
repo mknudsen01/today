@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import CSSTransitionGroup from 'react-addons-css-transition-group';
+import hash from 'object-hash';
 
 import '../css/styles.css';
 
@@ -46,7 +47,7 @@ class App extends Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (Object.keys(this.state.activitiesByTimestamp).length !== Object.keys(nextState.activitiesByTimestamp).length) {
+    if (hash(this.state.activitiesByTimestamp) !== hash(nextState.activitiesByTimestamp)) {
       this.setState({
         activityTimestamps: Object.keys(nextState.activitiesByTimestamp)
       })
