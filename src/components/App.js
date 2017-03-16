@@ -43,6 +43,7 @@ class App extends Component {
         deleteActivity={this.deleteActivity}
         editActivity={this.editActivity}
         isEditing={editingActivityTimestamp === timestamp}
+        cancelEdit={this.cancelEdit}
       />
     );
 
