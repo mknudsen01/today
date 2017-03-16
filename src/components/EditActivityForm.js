@@ -28,7 +28,7 @@ class EditActivityForm extends Component {
             <div className="col--6">
               <input
                 type="text"
-                className="w--100"
+                className="w--100 pv- ph-"
                 ref={(node) => this.description = node}
                 defaultValue={this.props.activity.description}
                 placeholder="went to the park"

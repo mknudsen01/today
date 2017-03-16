@@ -18,7 +18,12 @@ class AddActivityForm extends Component {
         onSubmit={(e) => this.createActivity(e)}
         ref={(input) => this.activityForm = input}
       >
-        <input type="text" ref={(node) => this.description = node} placeholder="went to the park" />
+        <input
+          type="text"
+          ref={(node) => this.description = node}
+          placeholder="went to the park"
+          className="pv- ph-"
+        />
         <button type="submit">Add activity</button>
       </form>
     );
