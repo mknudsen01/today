@@ -26,6 +26,8 @@ class App extends Component {
     this.editActivity = this.editActivity.bind(this);
     this.updateActivity = this.updateActivity.bind(this);
     this.cancelEdit = this.cancelEdit.bind(this);
+    this.authHandler = this.authHandler.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
   state = {
@@ -33,10 +35,12 @@ class App extends Component {
     activityTimestamps: [],
     currentDay: moment().startOf('day'),
     editingActivityTimestamp: null,
+    uid: null,
   };
 
-  componentWillMount() {
-    this.ref = base.syncState(`activitiesByTimestamp`, {
+  connectDatabase(uid) {
+    if (!uid) { return; }
+    this.ref = base.syncState(`${uid}/activitiesByTimestamp`, {
       context: this,
       state: 'activitiesByTimestamp',
     });
@@ -45,6 +49,27 @@ class App extends Component {
       activityTimestamps: Object.keys(this.state.activitiesByTimestamp)
     })
   }
+
+  logout() {
+    base.unauth();
+    base.removeBinding(this.ref);
+    this.setState({
+      uid: null,
+      activitiesByTimestamp: {},
+      activityTimestamps: [],
+    });
+  }
+
+  // componentWillMount() {
+  //   this.ref = base.syncState(`activitiesByTimestamp`, {
+  //     context: this,
+  //     state: 'activitiesByTimestamp',
+  //   });
+
+  //   this.setState({
+  //     activityTimestamps: Object.keys(this.state.activitiesByTimestamp)
+  //   })
+  // }
 
   componentWillUpdate(nextProps, nextState) {
     if (hash(this.state.activitiesByTimestamp) !== hash(nextState.activitiesByTimestamp)) {
@@ -56,6 +81,46 @@ class App extends Component {
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+  }
+
+  authHandler(err, authData) {
+    console.log('authData: ', authData);
+    if (err) {
+      console.log('err: ', err);
+      return;
+    }
+
+    this.setState({
+      uid: authData.uid,
+      email: authData.email,
+    });
+
+    this.connectDatabase(authData.uid);
+  }
+
+  authenticateWithPassword({email, password}) {
+    base.authWithPassword({email, password}, this.authHandler)
+  }
+
+  loginUser(e) {
+    e.preventDefault();
+    const email = this.loginEmail.value;
+    const password = this.loginPassword.value;
+
+    this.authenticateWithPassword({email, password});
+  }
+
+  createUser(e) {
+    e.preventDefault();
+    const email = this.createUserEmail.value;
+    const password = this.createUserPassword.value;
+
+    this.createUserWithPassword({email, password});
+    this.createUserForm.reset();
+  }
+
+  createUserWithPassword({email, password}) {
+    base.createUser({email, password}, this.authHandler);
   }
 
   renderActivity(timestamp,activity) {
@@ -176,6 +241,66 @@ class App extends Component {
 
   render() {
     const { activitiesByTimestamp, currentDay } = this.state;
+
+    if (!this.state.uid) {
+      return (
+        <section className="holy-grail--container">
+          <Header />
+          <Content>
+            <div className="container--full">
+              <div className="container">
+                <div className="row row--center">
+                  <form
+                    onSubmit={(e) => this.createUser(e)}
+                    ref={(node) => this.createUserForm = node}
+                  >
+                    <input
+                      type="email"
+                      required
+                      ref={(node) => this.createUserEmail = node}
+                      placeholder="email"
+                      className="pv- ph-"
+                    />
+                    <input
+                      type="password"
+                      required
+                      ref={(node) => this.createUserPassword = node}
+                      placeholder="password"
+                      className="pv- ph-"
+                    />
+                    <button type="submit">Create User</button>
+                  </form>
+                </div>
+                <div className="row row--center mt+">
+                  <form
+                    onSubmit={(e) => this.loginUser(e)}
+                    ref={(node) => this.loginForm = node}
+                  >
+                    <input
+                      type="email"
+                      required
+                      ref={(node) => this.loginEmail = node}
+                      placeholder="email"
+                      className="pv- ph-"
+                    />
+                    <input
+                      type="password"
+                      required
+                      ref={(node) => this.loginPassword = node}
+                      placeholder="password"
+                      className="pv- ph-"
+                    />
+                    <button type="submit">Log in</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </Content>
+          <Footer />
+        </section>
+      )
+    }
+
     return (
       <section className="holy-grail--container">
         <Header />
@@ -183,6 +308,9 @@ class App extends Component {
           <div className="container--full">
             <div className="container">
               <div className="row row--center">
+                <div>
+                  <button onClick={this.logout}>Log out</button>
+                </div>
                 <div className="col--6">
                   <div className="row pv">
                     <div
