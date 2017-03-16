@@ -6,6 +6,9 @@ import '../css/styles.css';
 import Activity from './Activity';
 import AddActivityForm from './AddActivityForm';
 import EditActivityForm from './EditActivityForm';
+import Header from './Header';
+import Footer from './Footer'
+import Content from './Content'
 
 import CSSTransitionGroup from 'react-addons-css-transition-group';
 
@@ -142,56 +145,59 @@ class App extends Component {
   render() {
     const { activitiesByTimestamp, currentDay } = this.state;
     return (
-      <div className="container">
-        <div className="row row--center">
-          <div className="col--6">
-            <div className="row pt+">
-              <div className="col">
-                Today daily tracker
+      <section className="holy-grail--container">
+        <Header />
+        <Content>
+          <div className="container--full">
+            <div className="container">
+              <div className="row row--center">
+                <div className="col--6">
+                  <div className="row pv">
+                    <div
+                      className="col--4"
+                      onClick={this.choosePreviousDay}
+                    >
+                      <span className="underline pointer">Previous day</span>
+                    </div>
+                    <div className="col--4">
+                      {currentDay.format('MMMM DD, YYYY')}
+                    </div>
+                    <div
+                      className="col--4"
+                      onClick={this.chooseNextDay}
+                    >
+                      <span className="underline pointer">Next day</span>
+                    </div>
+                  </div>
+                  <div className="row row--center pv">
+                    <AddActivityForm
+                      addActivity={this.addActivity}
+                    />
+                  </div>
+                  <div className="mt">
+                    {
+                      <CSSTransitionGroup
+                        component="div"
+                        transitionName="activity"
+                        transitionEnterTimeout={500}
+                        transitionLeaveTimeout={500}
+                      >
+                        {
+                          this.getCurrentDayTimestamps()
+                            .sort()
+                            .reverse()
+                            .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
+                        }
+                      </CSSTransitionGroup>
+                    }
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="row pv">
-              <div
-                className="col--4"
-                onClick={this.choosePreviousDay}
-              >
-                <span className="underline pointer">Previous day</span>
-              </div>
-              <div className="col--4">
-                {currentDay.format('MMMM DD, YYYY')}
-              </div>
-              <div
-                className="col--4"
-                onClick={this.chooseNextDay}
-              >
-                <span className="underline pointer">Next day</span>
-              </div>
-            </div>
-            <div className="row row--center pv">
-              <AddActivityForm
-                addActivity={this.addActivity}
-              />
-            </div>
-            <div className="mt">
-              {
-                <CSSTransitionGroup
-                  component="div"
-                  transitionName="activity"
-                  transitionEnterTimeout={500}
-                  transitionLeaveTimeout={500}
-                >
-                  {
-                    this.getCurrentDayTimestamps()
-                      .sort()
-                      .reverse()
-                      .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
-                  }
-                </CSSTransitionGroup>
-              }
             </div>
           </div>
-        </div>
-      </div>
+        </Content>
+        <Footer />
+      </section>
     );
   }
 }
