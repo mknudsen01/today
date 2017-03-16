@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 import '../css/styles.css';
 
@@ -9,8 +10,8 @@ import EditActivityForm from './EditActivityForm';
 import Header from './Header';
 import Footer from './Footer'
 import Content from './Content'
+import base from '../base';
 
-import CSSTransitionGroup from 'react-addons-css-transition-group';
 
 class App extends Component {
 
@@ -32,6 +33,29 @@ class App extends Component {
     currentDay: moment().startOf('day'),
     editingActivityTimestamp: null,
   };
+
+  componentWillMount() {
+    this.ref = base.syncState(`activitiesByTimestamp`, {
+      context: this,
+      state: 'activitiesByTimestamp',
+    });
+
+    this.setState({
+      activityTimestamps: Object.keys(this.state.activitiesByTimestamp)
+    })
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (Object.keys(this.state.activitiesByTimestamp).length !== Object.keys(nextState.activitiesByTimestamp).length) {
+      this.setState({
+        activityTimestamps: Object.keys(nextState.activitiesByTimestamp)
+      })
+    }
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
 
   renderActivity(timestamp,activity) {
     const { editingActivityTimestamp } = this.state;
@@ -81,10 +105,12 @@ class App extends Component {
 
   addActivity(activity) {
     const timestamp = this.getUnusedTimestamp();
+
+    const activityWithTimestamp = {...activity, timestamp}
     this.setState({
       activitiesByTimestamp: {
         ...this.state.activitiesByTimestamp,
-        [timestamp]: activity,
+        [timestamp]: activityWithTimestamp,
       },
       activityTimestamps: [...this.state.activityTimestamps, timestamp]
     })
@@ -135,11 +161,15 @@ class App extends Component {
   }
 
   getCurrentDayTimestamps() {
-    const { currentDay, activityTimestamps } = this.state;
+    const { currentDay, activityTimestamps, activitiesByTimestamp } = this.state;
     const start = +currentDay.startOf('day');
     const end = +currentDay.endOf('day');
 
-    return activityTimestamps
+    const stamps = activityTimestamps.length ?
+      activityTimestamps :
+      Object.keys(activitiesByTimestamp) || [];
+
+    return stamps
       .filter( timestamp => start <= +timestamp && timestamp <= end)
   }
 
