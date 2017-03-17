@@ -260,12 +260,15 @@ class App extends Component {
   }
 
   render() {
-    const { activitiesByTimestamp, currentDay } = this.state;
+    const { activitiesByTimestamp, currentDay, uid } = this.state;
 
-    if (!this.state.uid) {
+    if (!uid) {
       return (
         <section className="holy-grail--container">
-          <Header />
+          <Header
+            isLoggedIn={!!uid}
+            logout={this.logout}
+          />
           <Content>
             <div className="container--full">
               <div className="container">
@@ -323,7 +326,10 @@ class App extends Component {
 
     return (
       <section className="holy-grail--container">
-        <Header />
+        <Header
+          isLoggedIn={!!uid}
+          logout={this.logout}
+        />
         <Content>
           <div className="container--full">
             <div className="container">
