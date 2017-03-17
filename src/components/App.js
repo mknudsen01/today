@@ -52,24 +52,39 @@ class App extends Component {
 
   logout() {
     base.unauth();
-    base.removeBinding(this.ref);
+    if (this.ref) {
+      base.removeBinding(this.ref);
+    }
+
+    localStorage.setItem('user', null);
+
     this.setState({
       uid: null,
       activitiesByTimestamp: {},
       activityTimestamps: [],
     });
+
+
   }
 
-  // componentWillMount() {
-  //   this.ref = base.syncState(`activitiesByTimestamp`, {
-  //     context: this,
-  //     state: 'activitiesByTimestamp',
-  //   });
+  componentWillMount() {
+    const localStorageUser = JSON.parse(localStorage.getItem('user')) || {};
 
-  //   this.setState({
-  //     activityTimestamps: Object.keys(this.state.activitiesByTimestamp)
-  //   })
-  // }
+    const expiration = localStorageUser.expiration;
+
+    if (!expiration || +moment() > +expiration) {
+      this.logout();
+      return;
+    }
+
+    if (localStorageUser.uid) {
+      this.connectDatabase(localStorageUser.uid);
+      this.setState({
+        uid: localStorageUser.uid,
+        email: localStorageUser.email,
+      })
+    }
+  }
 
   componentWillUpdate(nextProps, nextState) {
     if (hash(this.state.activitiesByTimestamp) !== hash(nextState.activitiesByTimestamp)) {
@@ -92,8 +107,13 @@ class App extends Component {
 
     this.setState({
       uid: authData.uid,
-      email: authData.email,
     });
+
+    localStorage.setItem('user', JSON.stringify({
+      uid: authData.uid,
+      email: authData.email,
+      expiration: +moment().add(1, 'day'),
+    }));
 
     this.connectDatabase(authData.uid);
   }
