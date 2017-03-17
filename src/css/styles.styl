@@ -4,6 +4,12 @@
   --gutter-compensation: calc((var(--gutter-width) * 0.5) * -1);
   --half-gutter-width: calc((var(--gutter-width) * 0.5));
   --double-gutter-width: calc((var(--gutter-width) * 2.0));
+
+  --color--midnight-blue: #2c3e50;
+  --color--wet-ashpalt: #34495e;
+  --color--clouds: #ecf0f1;
+  --color--amethyst: #9b59b6;
+
 }
 
 @require './_normalize.styl'
@@ -12,8 +18,18 @@
 @require './_margin.styl'
 @require './_padding.styl'
 
+.bg--midnight-blue
+  background-color var(--color--midnight-blue)
+
+.bg--wet-asphalt
+  background-color var(--color--wet-ashpalt)
+
+.bg--clouds
+  background-color var(--color--clouds)
+
 body
   -webkit-font-smoothing antialiased
+  color var(--color--midnight-blue)
 
 .underline
   text-decoration underline
@@ -81,3 +97,11 @@ body
   -moz-animation: bgGradient 10s ease infinite;
   animation: bgGradient 10s ease infinite;
 }
+
+
+.overflow-x--hidden {
+  overflow-x hidden
+}
+
+.box-shadow--5
+  box-shadow 0px 0px 5px 0px #676767
