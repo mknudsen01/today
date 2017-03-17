@@ -4,7 +4,7 @@ class Footer extends Component {
 
   render() {
     return (
-      <div className="container--full">
+      <div className="container--full bg--clouds">
         <div className="container">
           <div className="row row--center pv">
             footer

@@ -331,51 +331,50 @@ class App extends Component {
           logout={this.logout}
         />
         <Content>
-          <div className="container--full">
+          <div className="container--full bg--wet-asphalt">
             <div className="container">
               <div className="row row--center">
-                <div>
-                  <button onClick={this.logout}>Log out</button>
-                </div>
                 <div className="col--6">
-                  <div className="row pv">
-                    <div
-                      className="col--4"
-                      onClick={this.choosePreviousDay}
-                    >
-                      <span className="underline pointer">Previous day</span>
-                    </div>
-                    <div className="col--4">
-                      {currentDay.format('MMMM DD, YYYY')}
-                    </div>
-                    <div
-                      className="col--4"
-                      onClick={this.chooseNextDay}
-                    >
-                      <span className="underline pointer">Next day</span>
-                    </div>
-                  </div>
-                  <div className="row row--center pv">
-                    <AddActivityForm
-                      addActivity={this.addActivity}
-                    />
-                  </div>
-                  <div className="mt">
-                    {
-                      <CSSTransitionGroup
-                        component="div"
-                        transitionName="activity"
-                        transitionEnterTimeout={500}
-                        transitionLeaveTimeout={500}
+                  <div className="bg--clouds mt+ overflow-x--hidden box-shadow--5">
+                    <div className="row mt+ pv">
+                      <div
+                        className="col--4"
+                        onClick={this.choosePreviousDay}
                       >
-                        {
-                          this.getCurrentDayTimestamps()
-                            .sort()
-                            .reverse()
-                            .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
-                        }
-                      </CSSTransitionGroup>
-                    }
+                        <a className="underline pointer">Previous day</a>
+                      </div>
+                      <div className="col--4">
+                        {currentDay.format('MMMM DD, YYYY')}
+                      </div>
+                      <div
+                        className="col--4"
+                        onClick={this.chooseNextDay}
+                      >
+                        <a className="underline pointer">Next day</a>
+                      </div>
+                    </div>
+                    <div className="row row--center pv">
+                      <AddActivityForm
+                        addActivity={this.addActivity}
+                      />
+                    </div>
+                    <div className="pt pb++ ph++">
+                      {
+                        <CSSTransitionGroup
+                          component="div"
+                          transitionName="activity"
+                          transitionEnterTimeout={500}
+                          transitionLeaveTimeout={500}
+                        >
+                          {
+                            this.getCurrentDayTimestamps()
+                              .sort()
+                              .reverse()
+                              .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
+                          }
+                        </CSSTransitionGroup>
+                      }
+                    </div>
                   </div>
                 </div>
               </div>
