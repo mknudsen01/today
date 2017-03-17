@@ -57,3 +57,27 @@ body
 
 .bg--red
   background red
+
+@-webkit-keyframes bgGradient {
+    0%{background-position:17% 0%}
+    50%{background-position:84% 100%}
+    100%{background-position:17% 0%}
+}
+@-moz-keyframes bgGradient {
+    0%{background-position:17% 0%}
+    50%{background-position:84% 100%}
+    100%{background-position:17% 0%}
+}
+@keyframes bgGradient {
+    0%{background-position:17% 0%}
+    50%{background-position:84% 100%}
+    100%{background-position:17% 0%}
+}
+
+.bg--gradient-blue {
+  background: linear-gradient(12deg, #e5fbff, #c9f8ff, #e8fffd, #eeffff, #f0feff);
+  background-size: 1000% 1000%;
+  -webkit-animation: bgGradient 10s ease infinite;
+  -moz-animation: bgGradient 10s ease infinite;
+  animation: bgGradient 10s ease infinite;
+}
