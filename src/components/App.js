@@ -335,7 +335,7 @@ class App extends Component {
             <div className="container">
               <div className="row row--center">
                 <div className="col--6">
-                  <div className="bg--clouds mt+ overflow-x--hidden box-shadow--5">
+                  <div className="bg--clouds mt++ overflow-x--hidden box-shadow--5">
                     <div className="row mt+ pv">
                       <div
                         className="col--4"
