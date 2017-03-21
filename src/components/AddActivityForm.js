@@ -17,14 +17,22 @@ class AddActivityForm extends Component {
       <form
         onSubmit={(e) => this.createActivity(e)}
         ref={(input) => this.activityForm = input}
+        className="row row--middle stretch"
       >
+
         <input
           type="text"
           ref={(node) => this.description = node}
           placeholder="went to the park"
-          className="pv- ph-"
+          className="pv- ph- col--9"
         />
-        <button type="submit">Add activity</button>
+        <div
+          onClick={(e) => this.createActivity(e)}
+          className="pv-- ph- bg--peter-river bg--belize-hole--hover text--white transition--3-10 pointer col--3 flex align-items--center justify-content--center"
+        >
+          Add activity
+        </div>
+
       </form>
     );
   }

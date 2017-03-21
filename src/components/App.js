@@ -353,10 +353,12 @@ class App extends Component {
                         <a className="underline pointer">Next day</a>
                       </div>
                     </div>
-                    <div className="row row--center pv">
-                      <AddActivityForm
-                        addActivity={this.addActivity}
-                      />
+                    <div className="row row--center pv ph++">
+                      <div className="col--12">
+                        <AddActivityForm
+                          addActivity={this.addActivity}
+                        />
+                      </div>
                     </div>
                     <div className="pt pb++ ph++">
                       {

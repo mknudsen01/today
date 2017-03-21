@@ -9,7 +9,8 @@
   --color--wet-ashpalt: #34495e;
   --color--clouds: #ecf0f1;
   --color--amethyst: #9b59b6;
-
+  --color--belize-hole: #2980b9;
+  --color--peter-river: #3498db;
 }
 
 @require './_normalize.styl'
@@ -27,9 +28,25 @@
 .bg--clouds
   background-color var(--color--clouds)
 
+.bg--belize-hole
+  background-color var(--color--belize-hole)
+
+.bg--peter-river
+  background-color var(--color--peter-river)
+
+.bg--belize-hole--hover:hover
+  background-color var(--color--belize-hole)
+
+.bg--peter-river--hover:hover
+  background-color var(--color--peter-river)
+
 body
   -webkit-font-smoothing antialiased
   color var(--color--midnight-blue)
+
+input
+  border 0
+  width 100%
 
 .underline
   text-decoration underline
@@ -60,6 +77,12 @@ body
 
 .color--blue
   color #2F577F
+
+.text--white
+  color #fff
+
+.transition--3-10
+  transition 0.3s all ease
 
 .holy-grail--container
   display flex
@@ -105,3 +128,12 @@ body
 
 .box-shadow--5
   box-shadow 0px 0px 5px 0px #676767
+
+.stretch
+  align-items stretch
+
+.align-items--center
+  align-items center
+
+.justify-content--center
+  justify-content center
