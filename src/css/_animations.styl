@@ -36,3 +36,23 @@
     opacity 0
     max-height 0
     transform translateY(-120%)
+
+
+.tags-enter
+  transition all 0.5s
+  transform translateX(-120%)
+  max-height 0
+  opactity 0
+  &.tags-enter-active
+    max-height 12px
+    opacity 1
+    transform translateX(0)
+
+
+.tags-leave
+  transition all 0.5s
+  opacity 1
+  // transform translateX(0)
+  &.tags-leave-active
+    opacity 0
+    // transform translateX(-120%)
