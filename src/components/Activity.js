@@ -9,11 +9,15 @@ class Activity extends Component {
     super(props);
 
     this.deleteTag = this.deleteTag.bind(this);
+    this.addTag = this.addTag.bind(this);
   }
 
   deleteTag(tag) {
-    console.log('in delete tag in activity')
     this.props.deleteTag(this.props.timestamp, tag);
+  }
+
+  addTag(tag) {
+    this.props.addTag(this.props.timestamp, tag);
   }
 
   render() {
@@ -64,8 +68,8 @@ class Activity extends Component {
         <TagList
           tags={tags}
           deleteTag={this.deleteTag}
+          addTag={this.addTag}
         />
-
       </div>
     );
   }
@@ -79,6 +83,7 @@ Activity.propTypes = {
   isEditing: PropTypes.bool.isRequired,
   cancelEdit: PropTypes.func.isRequired,
   deleteTag: PropTypes.func.isRequired,
+  addTag: PropTypes.func.isRequired,
 }
 
 export default Activity;

@@ -28,7 +28,7 @@ class Tag extends Component {
     return (
       <div className="col">
         <div
-          className="bg--amethyst bg--wisteria--hover pv-- pl- pr-- text--white font--10 bo-rad--3 pointer transition--3-10"
+          className="bg--amethyst bg--wisteria--hover pv-- pl- pr-- mb- text--white font--10 bo-rad--3 pointer transition--3-10"
           onClick={deleteTag}
           onMouseOver={() => this.toggleIsHover(true)}
           onMouseLeave={() => this.toggleIsHover(false)}

@@ -29,6 +29,7 @@ class App extends Component {
     this.authHandler = this.authHandler.bind(this);
     this.logout = this.logout.bind(this);
     this.deleteTag = this.deleteTag.bind(this);
+    this.addTag = this.addTag.bind(this);
   }
 
   state = {
@@ -156,6 +157,7 @@ class App extends Component {
         isEditing={editingActivityTimestamp === timestamp}
         cancelEdit={this.cancelEdit}
         deleteTag={this.deleteTag}
+        addTag={this.addTag}
       />
     );
 
@@ -205,15 +207,29 @@ class App extends Component {
   }
 
   deleteTag(timestamp, tagToDelete) {
-    console.log('in delete tag in app');
     const activitiesByTimestamp = {...this.state.activitiesByTimestamp};
     const activityToEdit = Object.assign({}, activitiesByTimestamp[timestamp]);
 
-    console.log('activityToEdit: ', activityToEdit);
     activityToEdit.tags = activityToEdit.tags.filter(tag => tag !== tagToDelete);
 
+    this.setState({
+      activitiesByTimestamp: {
+        ...activitiesByTimestamp,
+        [timestamp]: activityToEdit,
+      }
+    })
+  }
 
-    console.log('activityToEdit: ', activityToEdit);
+  addTag(timestamp, tagToAdd) {
+    const activitiesByTimestamp = {...this.state.activitiesByTimestamp};
+    const activityToEdit = Object.assign({}, activitiesByTimestamp[timestamp]);
+
+    if (!activityToEdit.tags) {
+      activityToEdit.tags = [tagToAdd];
+    } else {
+      activityToEdit.tags.push(tagToAdd);
+    }
+
 
     this.setState({
       activitiesByTimestamp: {
