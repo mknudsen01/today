@@ -1,11 +1,15 @@
 import React, { Component, PropTypes } from 'react';
 
-class AddActivityForm extends Component {
+import { getDescriptionAndTags } from '../helpers';
 
+class AddActivityForm extends Component {
   createActivity(e) {
     e.preventDefault();
+    const { description, tags } = getDescriptionAndTags(this.description.value);
+
     const activity = {
-       description: this.description.value,
+       description,
+       tags,
     }
 
     this.props.addActivity(activity);
