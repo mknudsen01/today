@@ -18,6 +18,12 @@ function getDescriptionAndTags(input) {
   }
 }
 
+function buildDescriptionAndTags(description = '', tags = []) {
+  const tagString = tags.map(tag => `#${tag}`).join(' ');
+  return `${description} ${tagString}`;
+}
+
 export {
-  getDescriptionAndTags
+  getDescriptionAndTags,
+  buildDescriptionAndTags,
 }
