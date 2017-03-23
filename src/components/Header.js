@@ -7,7 +7,7 @@ class Header extends Component {
     return (
       <div className="container--full bg--clouds">
         <div className="container">
-          <div className="row row--between pv+">
+          <div className="row row--between pv">
             <div className="col--6">
               Today, I...
             </div>
