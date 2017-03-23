@@ -224,12 +224,13 @@ class App extends Component {
     const activitiesByTimestamp = {...this.state.activitiesByTimestamp};
     const activityToEdit = Object.assign({}, activitiesByTimestamp[timestamp]);
 
-    if (!activityToEdit.tags) {
-      activityToEdit.tags = [tagToAdd];
-    } else {
-      activityToEdit.tags.push(tagToAdd);
-    }
+    const trimmedTag = tagToAdd.trim();
 
+    if (!activityToEdit.tags) {
+      activityToEdit.tags = [trimmedTag];
+    } else if (!activityToEdit.tags.includes(trimmedTag)) {
+      activityToEdit.tags.push(trimmedTag);
+    }
 
     this.setState({
       activitiesByTimestamp: {
