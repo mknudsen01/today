@@ -11,6 +11,9 @@
   --color--amethyst: #9b59b6;
   --color--belize-hole: #2980b9;
   --color--peter-river: #3498db;
+  --color--wisteria: #8e44ad;
+  --color--alizarin: #e74c3c;
+  --color--pomegranate: #c0392b;
 }
 
 @require './_normalize.styl'
@@ -39,6 +42,27 @@
 
 .bg--peter-river--hover:hover
   background-color var(--color--peter-river)
+
+.bg--amethyst
+  background-color var(--color--amethyst)
+
+.bg--wisteria
+  background-color var(--color--wisteria)
+
+.bg--wisteria--hover:hover
+  background-color var(--color--wisteria)
+
+.bg--alizarin
+  background-color var(--color--alizarin)
+
+.bg--alizarin--hover:hover
+  background-color var(--color--alizarin)
+
+.bg--pomegranate
+  background-color var(--color--pomegranate)
+
+.bg--pomegranate--hover:hover
+  background-color var(--color--pomegranate)
 
 body
   -webkit-font-smoothing antialiased
@@ -81,8 +105,20 @@ input
 .text--white
   color #fff
 
+.text--white--hover:hover
+  color #fff
+
+.text--amethyst
+  color: var(--color--amethyst)
+
+.transition--5-10
+  transition 0.5s all ease
+
 .transition--3-10
   transition 0.3s all ease
+
+.transition--1-10
+  transition 0.1s all ease
 
 .holy-grail--container
   display flex
@@ -137,3 +173,6 @@ input
 
 .justify-content--center
   justify-content center
+
+.bo-rad--3
+  border-radius 3px

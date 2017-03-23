@@ -3,14 +3,14 @@
   transform translateX(-120%)
   max-height 0
   &.activity-enter-active
-    max-height 34px
+    max-height 77px
     transform translateX(0)
 
 
 .activity-leave
   transition all 0.5s
   opacity 1
-  max-height 34px
+  max-height 77px
   &.activity-leave-active
     opacity 0
     max-height 0
@@ -36,3 +36,21 @@
     opacity 0
     max-height 0
     transform translateY(-120%)
+
+
+.tags-enter
+  transition all 0.3s
+  transform translateX(-120%)
+  opactity 0
+  &.tags-enter-active
+    opacity 1
+    transform translateX(0)
+
+
+.tags-leave
+  transition all 0.3s
+  opacity 1
+  // transform translateX(0)
+  &.tags-leave-active
+    opacity 0
+    // transform translateX(-120%)

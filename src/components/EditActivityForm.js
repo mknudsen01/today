@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { getDescriptionAndTags, buildDescriptionAndTags } from '../helpers';
 
 class EditActivityForm extends Component {
   componentDidMount() {
@@ -7,8 +8,12 @@ class EditActivityForm extends Component {
 
   updateActivity(e) {
     e.preventDefault();
+
+    const { description, tags } = getDescriptionAndTags(this.description.value);
+
     const activity = {
-       description: this.description.value,
+       description,
+       tags,
        timestamp: this.props.timestamp,
     }
 
@@ -17,6 +22,9 @@ class EditActivityForm extends Component {
   }
 
   render() {
+    const { activity } = this.props;
+    const { description, tags } = activity;
+
     return (
       <div className="row row--middle row--start">
         <form
@@ -30,7 +38,7 @@ class EditActivityForm extends Component {
                 type="text"
                 className="w--100 pv- ph-"
                 ref={(node) => this.description = node}
-                defaultValue={this.props.activity.description}
+                defaultValue={buildDescriptionAndTags(description, tags)}
                 placeholder="went to the park"
               />
             </div>

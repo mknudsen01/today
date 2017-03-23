@@ -50,6 +50,10 @@
   align-items: center;
 }
 
+.row--baseline {
+  align-items: baseline;
+}
+
 .row--bottom {
   align-items: flex-end;
 }
@@ -63,6 +67,7 @@
 }
 
 .col,
+.col--auto,
 .col--1,
 .col--2,
 .col--3,
@@ -95,7 +100,7 @@
   padding-left: var(--half-gutter-width, 0.5rem);
 }
 
-.col {
+.col--auto {
   flex-grow: 1;
   flex-basis: 0;
   max-width: 100%;
