@@ -6,6 +6,7 @@ class AddTagForm extends Component {
     super(props);
 
     this.addTag = this.addTag.bind(this);
+    this.cancelEdit = this.cancelEdit.bind(this);
   }
 
   cancelEdit() {
