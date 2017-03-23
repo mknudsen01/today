@@ -74,9 +74,9 @@ class TagList extends Component {
             <span
               key='add-tag'
               onClick={() => this.toggleIsAdding(true)}
-              className={'col pointer font--12'}
+              className={'col pointer font--12 pv-'}
             >
-              + add tag
+              + tag
             </span>
           )
         }

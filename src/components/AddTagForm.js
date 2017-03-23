@@ -49,7 +49,7 @@ class AddTagForm extends Component {
         <div className="col">
           <div
             onClick={(e) => this.addTag(e)}
-            className="pv-- ph- bg--peter-river bg--belize-hole--hover text--white transition--3-10 pointer flex align-items--center justify-content--center"
+            className="pv-- ph- bg--peter-river bg--belize-hole--hover text--white transition--5-10 pointer"
           >
             Add
           </div>
@@ -57,7 +57,7 @@ class AddTagForm extends Component {
         <div className="col">
           <div
             onClick={this.cancelEdit}
-            className="pv-- ph- bg--alizarin bg--pomegranate--hover text--white transition--3-10 pointer flex align-items--center justify-content--center"
+            className="pv-- ph- bg--alizarin bg--pomegranate--hover text--white transition--5-10 pointer"
           >
             Cancel
           </div>
