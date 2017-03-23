@@ -16,6 +16,7 @@ class AddTagForm extends Component {
 
   addTag(e) {
     e.preventDefault();
+    if (!this.tag.value) return
     this.props.addTag(this.tag.value);
   }
 
