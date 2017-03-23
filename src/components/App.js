@@ -300,6 +300,9 @@ class App extends Component {
   render() {
     const { activitiesByTimestamp, currentDay, uid } = this.state;
 
+    const isToday = +currentDay.startOf('day') === +moment().startOf('day');
+    const isEarliestDay = +currentDay.startOf('day') === +moment().subtract('years', 1).startOf('day')
+
     if (!uid) {
       return (
         <section className="holy-grail--container">
@@ -377,18 +380,18 @@ class App extends Component {
                     <div className="row mt+ pv">
                       <div
                         className="col--4"
-                        onClick={this.choosePreviousDay}
+                        onClick={isEarliestDay ? null: this.choosePreviousDay}
                       >
-                        <a className="underline pointer">Previous day</a>
+                        <a className={`transition--3-10 ${isEarliestDay ? 'text--silver' : 'underline pointer'}`}>Previous day</a>
                       </div>
                       <div className="col--4">
                         {currentDay.format('MMMM DD, YYYY')}
                       </div>
                       <div
                         className="col--4"
-                        onClick={this.chooseNextDay}
+                        onClick={isToday ? null : this.chooseNextDay}
                       >
-                        <a className="underline pointer">Next day</a>
+                        <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>Next day</a>
                       </div>
                     </div>
                     <div className="row row--center pv ph++">
