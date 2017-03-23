@@ -9,6 +9,7 @@ class TagList extends Component {
     super(props);
 
     this.addTag = this.addTag.bind(this);
+    this.cancelEdit = this.cancelEdit.bind(this);
 
     this.state = {
       isAdding: false,
@@ -30,6 +31,11 @@ class TagList extends Component {
 
   }
 
+  cancelEdit() {
+    this.addTagForm.reset();
+    this.toggleIsAdding(false);
+  }
+
   render() {
     return (
       <CSSTransitionGroup
@@ -41,22 +47,32 @@ class TagList extends Component {
       >
         {
           this.state.isAdding && (
-            <div key={'add-tag-form'} className="col--12">
-              <form onSubmit={this.addTag} className="row row--middle font--12">
+            <div key={'add-tag-form'} className="col--12 pv--">
+              <form onSubmit={this.addTag} ref={(node) => this.addTagForm = node} className="row row--middle font--12">
                 <div className="col--8">
                   <input
                     type="text"
                     ref={(node) => this.tag = node }
                     placeholder="exercise"
-                    className="pv-- ph-"
+                    className="pv-- ph- flex col--11"
                     autoFocus
                   />
                 </div>
                 <div className="col">
-                  <button type="submit">Add</button>
+                  <div
+                    onClick={(e) => this.addTag(e)}
+                    className="pv-- ph- bg--peter-river bg--belize-hole--hover text--white transition--3-10 pointer flex align-items--center justify-content--center"
+                  >
+                    Add
+                  </div>
                 </div>
                 <div className="col">
-                  <button type="reset" onClick={() => this.toggleIsAdding(false)}>Cancel</button>
+                  <div
+                    onClick={this.cancelEdit}
+                    className="pv-- ph- bg--alizarin bg--pomegranate--hover text--white transition--3-10 pointer flex align-items--center justify-content--center"
+                  >
+                    Cancel
+                  </div>
                 </div>
 
               </form>
