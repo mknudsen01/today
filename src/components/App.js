@@ -418,7 +418,7 @@ class App extends Component {
                         <a className={`transition--3-10 ${isEarliestDay ? 'text--silver' : 'underline pointer'}`}>{isToday ? 'Yesterday' : 'Previous day'}</a>
                       </div>
                       <div className="col--4">
-                        {isToday ? 'Today' : currentDay.format('MMMM DD, YYYY')}
+                        {isToday ? 'Today' : isYesterday ? 'Yesterday' : currentDay.format('MMMM DD, YYYY')}
                       </div>
                       <div
                         className="col--4"
