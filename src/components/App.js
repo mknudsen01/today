@@ -301,7 +301,8 @@ class App extends Component {
     const { activitiesByTimestamp, currentDay, uid } = this.state;
 
     const isToday = +currentDay.startOf('day') === +moment().startOf('day');
-    const isEarliestDay = +currentDay.startOf('day') === +moment().subtract('years', 1).startOf('day')
+    const isYesterday = +currentDay.startOf('day') === +moment().subtract('days', 1).startOf('day');
+    const isEarliestDay = +currentDay.startOf('day') === +moment().subtract('years', 1).startOf('day');
 
     if (!uid) {
       return (
@@ -382,16 +383,16 @@ class App extends Component {
                         className="col--4"
                         onClick={isEarliestDay ? null: this.choosePreviousDay}
                       >
-                        <a className={`transition--3-10 ${isEarliestDay ? 'text--silver' : 'underline pointer'}`}>Previous day</a>
+                        <a className={`transition--3-10 ${isEarliestDay ? 'text--silver' : 'underline pointer'}`}>{isToday ? 'Yesterday' : 'Previous day'}</a>
                       </div>
                       <div className="col--4">
-                        {currentDay.format('MMMM DD, YYYY')}
+                        {isToday ? 'Today' : currentDay.format('MMMM DD, YYYY')}
                       </div>
                       <div
                         className="col--4"
                         onClick={isToday ? null : this.chooseNextDay}
                       >
-                        <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>Next day</a>
+                        <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>{isYesterday ? 'Today' : 'Next day'}</a>
                       </div>
                     </div>
                     <div className="row row--center pv ph++">
