@@ -19,6 +19,7 @@ class App extends Component {
   constructor(props) {
     super(props);
 
+    this.componentDidMount = this.componentDidMount.bind(this);
     this.choosePreviousDay = this.choosePreviousDay.bind(this);
     this.chooseNextDay = this.chooseNextDay.bind(this);
     this.deleteActivity = this.deleteActivity.bind(this);
@@ -65,8 +66,10 @@ class App extends Component {
       activitiesByTimestamp: {},
       activityTimestamps: [],
     });
+  }
 
-
+  componentDidMount() {
+    window.addEventListener('keypress', this.shortcutListeners.bind(this))
   }
 
   componentWillMount() {
@@ -98,6 +101,19 @@ class App extends Component {
 
   componentWillUnmount() {
     base.removeBinding(this.ref);
+    window.removeEventListener('keypress', this.shortcutListeners);
+  }
+
+  shortcutListeners(e) {
+    if (e.key === 'n' && !!e.ctrlKey) { // Ctrl + n
+      this.chooseNextDay();
+    }
+    if (e.key === 'p' && !!e.ctrlKey) { // Ctrl + p
+      this.choosePreviousDay();
+    }
+    if (e.key === 't' && !!e.ctrlKey) { // Ctrl + t
+      this.chooseDay(moment());
+    }
   }
 
   authHandler(err, authData) {
@@ -272,13 +288,29 @@ class App extends Component {
     })
   }
 
+  chooseDay(dayMoment) {
+    this.setState({
+      currentDay: dayMoment.startOf('day')
+    })
+  }
+
   choosePreviousDay() {
+    const { currentDay } = this.state;
+    const isEarliestDay = +currentDay.startOf('day') === +moment().subtract('years', 1).startOf('day');
+
+    if (isEarliestDay) return;
+
     this.setState({
       currentDay: this.state.currentDay.subtract(1, 'day')
     })
   }
 
   chooseNextDay() {
+    const { currentDay } = this.state;
+    const isToday = +currentDay.startOf('day') === +moment().startOf('day');
+
+    if (isToday) return;
+
     this.setState({
       currentDay: this.state.currentDay.add(1, 'day')
     })
