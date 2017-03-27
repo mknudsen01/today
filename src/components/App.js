@@ -12,6 +12,7 @@ import Header from './Header';
 import Footer from './Footer'
 import Content from './Content'
 import base from '../base';
+import Login from './Login';
 
 
 class App extends Component {
@@ -31,6 +32,8 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.deleteTag = this.deleteTag.bind(this);
     this.addTag = this.addTag.bind(this);
+    this.loginUser = this.loginUser.bind(this);
+    this.createUser = this.createUser.bind(this);
   }
 
   state = {
@@ -140,21 +143,12 @@ class App extends Component {
     base.authWithPassword({email, password}, this.authHandler)
   }
 
-  loginUser(e) {
-    e.preventDefault();
-    const email = this.loginEmail.value;
-    const password = this.loginPassword.value;
-
+  loginUser({email, password}) {
     this.authenticateWithPassword({email, password});
   }
 
-  createUser(e) {
-    e.preventDefault();
-    const email = this.createUserEmail.value;
-    const password = this.createUserPassword.value;
-
+  createUser({email, password}) {
     this.createUserWithPassword({email, password});
-    this.createUserForm.reset();
   }
 
   createUserWithPassword({email, password}) {
@@ -344,54 +338,11 @@ class App extends Component {
             logout={this.logout}
           />
           <Content>
-            <div className="container--full">
-              <div className="container">
-                <div className="row row--center">
-                  <form
-                    onSubmit={(e) => this.createUser(e)}
-                    ref={(node) => this.createUserForm = node}
-                  >
-                    <input
-                      type="email"
-                      required
-                      ref={(node) => this.createUserEmail = node}
-                      placeholder="email"
-                      className="pv- ph-"
-                    />
-                    <input
-                      type="password"
-                      required
-                      ref={(node) => this.createUserPassword = node}
-                      placeholder="password"
-                      className="pv- ph-"
-                    />
-                    <button type="submit">Create User</button>
-                  </form>
-                </div>
-                <div className="row row--center mt+">
-                  <form
-                    onSubmit={(e) => this.loginUser(e)}
-                    ref={(node) => this.loginForm = node}
-                  >
-                    <input
-                      type="email"
-                      required
-                      ref={(node) => this.loginEmail = node}
-                      placeholder="email"
-                      className="pv- ph-"
-                    />
-                    <input
-                      type="password"
-                      required
-                      ref={(node) => this.loginPassword = node}
-                      placeholder="password"
-                      className="pv- ph-"
-                    />
-                    <button type="submit">Log in</button>
-                  </form>
-                </div>
-              </div>
-            </div>
+            <Login
+              loginUser={this.loginUser}
+              createUser={this.createUser}
+            />
+
           </Content>
           <Footer />
         </section>
