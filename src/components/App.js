@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import moment from 'moment';
-import CSSTransitionGroup from 'react-addons-css-transition-group';
+// import CSSTransitionGroup from 'react-addons-css-transition-group';
 import hash from 'object-hash';
 
 import '../css/styles.css';
 
-import Activity from './Activity';
-import AddActivityForm from './AddActivityForm';
-import EditActivityForm from './EditActivityForm';
+// import Activity from './Activity';
+// import AddActivityForm from './AddActivityForm';
+// import EditActivityForm from './EditActivityForm';
 import Header from './Header';
 import Footer from './Footer'
 import Content from './Content'
 import base from '../base';
 import Login from './Login';
+import Home from './Home';
 
 
 class App extends Component {
@@ -153,48 +154,6 @@ class App extends Component {
 
   createUserWithPassword({email, password}) {
     base.createUser({email, password}, this.authHandler);
-  }
-
-  renderActivity(timestamp,activity) {
-    const { editingActivityTimestamp } = this.state;
-    const activityElement = (
-      <Activity
-        key={`activity-display-${timestamp}`}
-        timestamp={timestamp}
-        activity={activity}
-        deleteActivity={this.deleteActivity}
-        editActivity={this.editActivity}
-        isEditing={editingActivityTimestamp === timestamp}
-        cancelEdit={this.cancelEdit}
-        deleteTag={this.deleteTag}
-        addTag={this.addTag}
-      />
-    );
-
-    return (
-      <div key={`activity-${timestamp}`}>
-        <CSSTransitionGroup
-          component="div"
-          transitionName="activity-edit-form"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
-        >
-          {activityElement}
-          {
-            editingActivityTimestamp === timestamp && (
-              <EditActivityForm
-                key={`edit-activity-${timestamp}`}
-                activity={activity}
-                timestamp={timestamp}
-                cancelEdit={this.cancelEdit}
-                updateActivity={this.updateActivity}
-              />
-            )
-          }
-
-        </CSSTransitionGroup>
-      </div>
-    )
   }
 
   getUnusedTimestamp() {
@@ -356,57 +315,26 @@ class App extends Component {
           logout={this.logout}
         />
         <Content>
-          <div className="container--full bg--wet-asphalt">
-            <div className="container">
-              <div className="row row--center">
-                <div className="col--6">
-                  <div className="bg--clouds mt++ overflow-x--hidden box-shadow--5">
-                    <div className="row mt+ pv">
-                      <div
-                        className="col--4"
-                        onClick={isEarliestDay ? null: this.choosePreviousDay}
-                      >
-                        <a className={`transition--3-10 ${isEarliestDay ? 'text--silver' : 'underline pointer'}`}>{isToday ? 'Yesterday' : 'Previous day'}</a>
-                      </div>
-                      <div className="col--4">
-                        {isToday ? 'Today' : isYesterday ? 'Yesterday' : currentDay.format('MMMM DD, YYYY')}
-                      </div>
-                      <div
-                        className="col--4"
-                        onClick={isToday ? null : this.chooseNextDay}
-                      >
-                        <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>{isYesterday ? 'Today' : 'Next day'}</a>
-                      </div>
-                    </div>
-                    <div className="row row--center pv ph++">
-                      <div className="col--12">
-                        <AddActivityForm
-                          addActivity={this.addActivity}
-                        />
-                      </div>
-                    </div>
-                    <div className="pt pb++ ph++">
-                      {
-                        <CSSTransitionGroup
-                          component="div"
-                          transitionName="activity"
-                          transitionEnterTimeout={500}
-                          transitionLeaveTimeout={500}
-                        >
-                          {
-                            this.getCurrentDayTimestamps()
-                              .sort()
-                              .reverse()
-                              .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
-                          }
-                        </CSSTransitionGroup>
-                      }
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <Home
+            activitiesByTimestamp={activitiesByTimestamp}
+            currentDay={currentDay}
+            isToday={isToday}
+            isYesterday={isYesterday}
+            isEarliestDay={isEarliestDay}
+            choosePreviousDay={this.choosePreviousDay}
+            chooseNextDay={this.chooseNextDay}
+            addActivity={this.addActivity}
+            activityTimestamps={this.state.activityTimestamps}
+            editingActivityTimestamp={this.state.editingActivityTimestamp}
+            deleteActivity={this.deleteActivity}
+            editActivity={this.editActivity}
+            cancelEdit={this.cancelEdit}
+            deleteTag={this.deleteTag}
+            addTag={this.addTag}
+            updateActivity={this.updateActivity}
+            currentDayTimestamps={this.getCurrentDayTimestamps()}
+
+          />
         </Content>
         <Footer />
       </section>
