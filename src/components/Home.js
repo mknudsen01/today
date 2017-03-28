@@ -132,7 +132,7 @@ Home.propTypes = {
   chooseNextDay: PropTypes.func.isRequired,
   addActivity: PropTypes.func.isRequired,
   activityTimestamps: PropTypes.array.isRequired,
-  editingActivityTimestamp: PropTypes.func.isRequired,
+  editingActivityTimestamp: PropTypes.func,
   deleteActivity: PropTypes.func.isRequired,
   editActivity: PropTypes.func.isRequired,
   cancelEdit: PropTypes.func.isRequired,
