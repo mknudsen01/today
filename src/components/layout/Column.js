@@ -76,7 +76,7 @@ function Column(props) {
   });
 
   return (
-    <div className={classes} style={props.style}>
+    <div className={classes} style={props.style} onClick={props.onClick ? props.onClick : null}>
       {props.children}
     </div>
   );
@@ -102,6 +102,7 @@ Column.propTypes = {
   hideSm: PropTypes.bool,
   spanSm: PropTypes.number,
   offsetSm: PropTypes.number,
+  onClick: PropTypes.func,
 };
 
 export default Column;
