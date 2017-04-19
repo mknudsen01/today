@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
+import Row from './layout/Row';
+import Column from './layout/Column';
+
 class Header extends Component {
 
   render() {
@@ -7,18 +10,18 @@ class Header extends Component {
     return (
       <div className="container--full bg--clouds">
         <div className="container">
-          <div className="row row--between pv">
-            <div className="col--6">
+          <Row between className="pv">
+            <Column span={6}>
               Today, I...
-            </div>
+            </Column>
             {
               isLoggedIn && (
-                <div className="col--2 col--right">
+                <Column span={4} end>
                   <div className="cursor--pointer" onClick={logout}>Log out</div>
-                </div>
+                </Column>
               )
             }
-          </div>
+          </Row>
         </div>
       </div>
     );
