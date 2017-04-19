@@ -86,7 +86,7 @@ class Home extends Component {
                   {isToday ? 'Today' : isYesterday ? 'Yesterday' : currentDay.format('MMMM DD, YYYY')}
                 </Column>
                 <Column
-                  right
+                  end
                   onClick={isToday ? null : chooseNextDay}
                 >
                   <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>{isYesterday ? 'Today' : 'Next day'}</a>
