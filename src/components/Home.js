@@ -6,6 +6,9 @@ import Activity from './Activity';
 import AddActivityForm from './AddActivityForm';
 import EditActivityForm from './EditActivityForm';
 
+import Row from './layout/Row';
+import Column from './layout/Column';
+
 class Home extends Component {
 
   renderActivity(timestamp,activity) {
@@ -68,53 +71,53 @@ class Home extends Component {
 
       <div className="container--full bg--wet-asphalt">
         <div className="container">
-          <div className="row row--center">
-            <div className="col--6">
-              <div className="bg--clouds mt++ overflow-x--hidden box-shadow--5">
-                <div className="row mt+ pv">
-                  <div
-                    className="col--4"
-                    onClick={isEarliestDay ? null: choosePreviousDay}
+          <Row center className="mt+">
+            <Column className="bg--clouds overflow-x--hidden box-shadow--5">
+              <Row className="mt+ pv">
+                <Column
+                  span={4}
+                  onClick={isEarliestDay ? null: choosePreviousDay}
+                >
+                  <a className={`transition--3-10 ${isEarliestDay ? 'text--silver' : 'underline pointer'}`}>{isToday ? 'Yesterday' : 'Previous day'}</a>
+                </Column>
+                <Column
+                  center
+                >
+                  {isToday ? 'Today' : isYesterday ? 'Yesterday' : currentDay.format('MMMM DD, YYYY')}
+                </Column>
+                <Column
+                  right
+                  onClick={isToday ? null : chooseNextDay}
+                >
+                  <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>{isYesterday ? 'Today' : 'Next day'}</a>
+                </Column>
+              </Row>
+              <Row center className="pv">
+                <Column span={11}>
+                  <AddActivityForm
+                    addActivity={addActivity}
+                  />
+                </Column>
+              </Row>
+              <div className="pt pb++ ph++">
+                {
+                  <CSSTransitionGroup
+                    component="div"
+                    transitionName="activity"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={500}
                   >
-                    <a className={`transition--3-10 ${isEarliestDay ? 'text--silver' : 'underline pointer'}`}>{isToday ? 'Yesterday' : 'Previous day'}</a>
-                  </div>
-                  <div className="col--4">
-                    {isToday ? 'Today' : isYesterday ? 'Yesterday' : currentDay.format('MMMM DD, YYYY')}
-                  </div>
-                  <div
-                    className="col--4"
-                    onClick={isToday ? null : chooseNextDay}
-                  >
-                    <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>{isYesterday ? 'Today' : 'Next day'}</a>
-                  </div>
-                </div>
-                <div className="row row--center pv ph++">
-                  <div className="col--12">
-                    <AddActivityForm
-                      addActivity={addActivity}
-                    />
-                  </div>
-                </div>
-                <div className="pt pb++ ph++">
-                  {
-                    <CSSTransitionGroup
-                      component="div"
-                      transitionName="activity"
-                      transitionEnterTimeout={500}
-                      transitionLeaveTimeout={500}
-                    >
-                      {
-                        currentDayTimestamps
-                          .sort()
-                          .reverse()
-                          .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
-                      }
-                    </CSSTransitionGroup>
-                  }
-                </div>
+                    {
+                      currentDayTimestamps
+                        .sort()
+                        .reverse()
+                        .map(timestamp => this.renderActivity(timestamp, activitiesByTimestamp[timestamp]))
+                    }
+                  </CSSTransitionGroup>
+                }
               </div>
-            </div>
-          </div>
+            </Column>
+          </Row>
         </div>
       </div>
     );
