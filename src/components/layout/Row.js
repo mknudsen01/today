@@ -4,6 +4,7 @@ import classnames from 'classnames';
 
 function Row(props) {
   const classes = classnames({
+    [props.className]: props.className,
     'row': true,
 
     'gutter--0': props.noGutter,
