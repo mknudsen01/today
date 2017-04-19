@@ -73,7 +73,7 @@ class Home extends Component {
         <div className="container">
           <Row center className="mt+">
             <Column className="bg--clouds overflow-x--hidden box-shadow--5">
-              <Row className="mt+ pv">
+              <Row className="mt+ p">
                 <Column
                   span={4}
                   onClick={isEarliestDay ? null: choosePreviousDay}
