@@ -69,11 +69,11 @@ class Home extends Component {
 
     return (
 
-      <div className="container--full bg--wet-asphalt">
+      <div className="container--full bg--wet-asphalt pv+">
         <div className="container">
-          <Row center className="mt+">
+          <Row center>
             <Column className="bg--clouds overflow-x--hidden box-shadow--5">
-              <Row className="mt+ p">
+              <Row className="mt p">
                 <Column
                   span={4}
                   onClick={isEarliestDay ? null: choosePreviousDay}
@@ -99,7 +99,7 @@ class Home extends Component {
                   />
                 </Column>
               </Row>
-              <div className="pt pb++ ph++">
+              <div className="pb ph-">
                 {
                   <CSSTransitionGroup
                     component="div"

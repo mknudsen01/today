@@ -26,7 +26,7 @@ class Tag extends Component {
       'text--white': this.state.isHover,
     })
     return (
-      <div className="col">
+      <div className="flex">
         <div
           className="bg--amethyst bg--wisteria--hover pv-- pl- pr-- mb- text--white font--10 bo-rad--3 pointer transition--3-10"
           onClick={deleteTag}

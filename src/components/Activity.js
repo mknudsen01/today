@@ -25,7 +25,7 @@ class Activity extends Component {
     const { description, tags = [] } = activity;
 
     return (
-      <div className="pb">
+      <div>
         <div className="row row--middle row--start">
           <div className="col--auto flex align-items--center">
             <div

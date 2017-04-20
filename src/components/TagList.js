@@ -39,13 +39,7 @@ class TagList extends Component {
 
   render() {
     return (
-      <CSSTransitionGroup
-        component="div"
-        className="row row--baseline"
-        transitionName="tags"
-        transitionEnterTimeout={300}
-        transitionLeaveTimeout={300}
-      >
+      <div className="row row--baseline ph-">
         {
           this.state.isAdding && (
             <div key={'add-tag-form'} className="col--12 pv--">
@@ -80,7 +74,7 @@ class TagList extends Component {
             </span>
           )
         }
-      </CSSTransitionGroup>
+      </div>
     );
   }
 }

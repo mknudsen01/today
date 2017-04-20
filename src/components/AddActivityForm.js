@@ -50,7 +50,7 @@ class AddActivityForm extends Component {
           onClick={(e) => this.createActivity(e)}
           className="pv-- ph- bg--peter-river bg--belize-hole--hover text--white transition--3-10 pointer col--3 flex align-items--center justify-content--center"
         >
-          Add activity
+          Add
         </div>
 
       </form>
