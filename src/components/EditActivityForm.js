@@ -1,6 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { getDescriptionAndTags, buildDescriptionAndTags } from '../helpers';
 
+import Row from './layout/Row';
+import Column from './layout/Column';
+
 class EditActivityForm extends Component {
   componentDidMount() {
     this.description.focus();
@@ -26,31 +29,31 @@ class EditActivityForm extends Component {
     const { description, tags } = activity;
 
     return (
-      <div className="row row--middle row--start">
-        <form
-          className="col--12"
-          onSubmit={(e) => this.updateActivity(e)}
-          ref={(input) => this.activityForm = input}
-        >
-          <div className="row row--middle">
-            <div className="col--6">
-              <input
-                type="text"
-                className="w--100 pv- ph-"
-                ref={(node) => this.description = node}
-                defaultValue={buildDescriptionAndTags(description, tags)}
-                placeholder="went to the park"
-              />
-            </div>
-            <div className="col--2">
-              <button type="submit">Update</button>
-            </div>
-            <div className="col--2">
-              <div onClick={this.props.cancelEdit}>cancel</div>
-            </div>
-          </div>
-        </form>
-      </div>
+      <form
+        onSubmit={(e) => this.updateActivity(e)}
+        ref={(input) => this.activityForm = input}
+      >
+        <Row className="ph-">
+          <input
+            type="text"
+            className="flex flex-grow--1 p-"
+            ref={(node) => this.description = node}
+            defaultValue={buildDescriptionAndTags(description, tags)}
+            placeholder="went to the park"
+          />
+        </Row>
+        <Row middle>
+          <Column span={4} center className="pv-">
+            <div onClick={this.updateActivity}>save</div>
+          </Column>
+          <Column span={4} center className="pv-">
+            <div onClick={this.props.cancelEdit}>cancel</div>
+          </Column>
+          <Column span={4} center className="pv-">
+            <div onClick={() => this.props.deleteActivity(activity.timestamp)}>delete</div>
+          </Column>
+        </Row>
+      </form>
     );
   }
 }
@@ -58,6 +61,7 @@ class EditActivityForm extends Component {
 EditActivityForm.propTypes = {
   updateActivity: PropTypes.func.isRequired,
   cancelEdit: PropTypes.func.isRequired,
+  deleteActivity: PropTypes.func.isRequired,
   activity: PropTypes.object.isRequired,
 };
 

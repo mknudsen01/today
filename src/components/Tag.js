@@ -1,44 +1,19 @@
 import React, { Component, PropTypes } from 'react';
 
-import classnames from 'classnames';
-
 class Tag extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isHover: false,
-    }
-  }
-
-  toggleIsHover(value) {
-    this.setState({
-      isHover: value,
-    })
   }
 
   render() {
-    const { value, deleteTag } = this.props;
+    const { value } = this.props;
 
-    const deleteClx = classnames({
-      'ph-- transition--1-10': true,
-      'text--amethyst': !this.state.isHover,
-      'text--white': this.state.isHover,
-    })
     return (
-      <div className="flex">
+      <div className="flex mr-">
         <div
-          className="bg--amethyst bg--wisteria--hover pv-- pl- pr-- mb- text--white font--10 bo-rad--3 pointer transition--3-10"
-          onClick={deleteTag}
-          onMouseOver={() => this.toggleIsHover(true)}
-          onMouseLeave={() => this.toggleIsHover(false)}
+          className="bg--amethyst bg--wisteria--hover pv-- ph- mb- text--white font--10 bo-rad--3 pointer transition--3-10"
         >
           {value}
-          <span
-            className={deleteClx}
-          >
-            &times;
-          </span>
         </div>
       </div>
     );
@@ -47,7 +22,6 @@ class Tag extends Component {
 
 Tag.propTypes = {
   value: PropTypes.string.isRequired,
-  deleteTag: PropTypes.func.isRequired,
 }
 
 export default Tag;

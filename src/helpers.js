@@ -6,7 +6,8 @@ function getDescriptionAndTags(input) {
 
   pieces.forEach(piece => {
     if (piece[0] === '#') {
-      tags.push(piece.slice(1)); // tag without the leading '#'
+      let tag = piece.slice(1); // tag without the leading '#'
+      if (!tags.includes(tag)) tags.push(tag);
     } else {
       descriptionPieces.push(piece);
     }

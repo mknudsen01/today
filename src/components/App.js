@@ -31,8 +31,6 @@ class App extends Component {
     this.cancelEdit = this.cancelEdit.bind(this);
     this.authHandler = this.authHandler.bind(this);
     this.logout = this.logout.bind(this);
-    this.deleteTag = this.deleteTag.bind(this);
-    this.addTag = this.addTag.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.createUser = this.createUser.bind(this);
   }
@@ -172,40 +170,6 @@ class App extends Component {
         [timestamp]: activityWithTimestamp,
       },
       activityTimestamps: [...this.state.activityTimestamps, timestamp]
-    })
-  }
-
-  deleteTag(timestamp, tagToDelete) {
-    const activitiesByTimestamp = {...this.state.activitiesByTimestamp};
-    const activityToEdit = Object.assign({}, activitiesByTimestamp[timestamp]);
-
-    activityToEdit.tags = activityToEdit.tags.filter(tag => tag !== tagToDelete);
-
-    this.setState({
-      activitiesByTimestamp: {
-        ...activitiesByTimestamp,
-        [timestamp]: activityToEdit,
-      }
-    })
-  }
-
-  addTag(timestamp, tagToAdd) {
-    const activitiesByTimestamp = {...this.state.activitiesByTimestamp};
-    const activityToEdit = Object.assign({}, activitiesByTimestamp[timestamp]);
-
-    const trimmedTag = tagToAdd.trim();
-
-    if (!activityToEdit.tags) {
-      activityToEdit.tags = [trimmedTag];
-    } else if (!activityToEdit.tags.includes(trimmedTag)) {
-      activityToEdit.tags.push(trimmedTag);
-    }
-
-    this.setState({
-      activitiesByTimestamp: {
-        ...activitiesByTimestamp,
-        [timestamp]: activityToEdit,
-      }
     })
   }
 

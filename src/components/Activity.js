@@ -5,21 +5,6 @@ import TagList from './TagList';
 
 class Activity extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.deleteTag = this.deleteTag.bind(this);
-    this.addTag = this.addTag.bind(this);
-  }
-
-  deleteTag(tag) {
-    this.props.deleteTag(this.props.timestamp, tag);
-  }
-
-  addTag(tag) {
-    this.props.addTag(this.props.timestamp, tag);
-  }
-
   render() {
     const { timestamp, activity, deleteActivity, editActivity, isEditing, cancelEdit } = this.props;
     const { description, tags = [] } = activity;
@@ -67,8 +52,6 @@ class Activity extends Component {
         </div>
         <TagList
           tags={tags}
-          deleteTag={this.deleteTag}
-          addTag={this.addTag}
         />
       </div>
     );
@@ -82,8 +65,6 @@ Activity.propTypes = {
   editActivity: PropTypes.func.isRequired,
   isEditing: PropTypes.bool.isRequired,
   cancelEdit: PropTypes.func.isRequired,
-  deleteTag: PropTypes.func.isRequired,
-  addTag: PropTypes.func.isRequired,
 }
 
 export default Activity;

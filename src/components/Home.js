@@ -13,7 +13,16 @@ class Home extends Component {
 
   renderActivity(timestamp,activity) {
     const { editingActivityTimestamp } = this.props;
-    const activityElement = (
+    const activityElement = editingActivityTimestamp === timestamp ? (
+        <EditActivityForm
+          key={`edit-activity-${timestamp}`}
+          activity={activity}
+          timestamp={timestamp}
+          cancelEdit={this.props.cancelEdit}
+          updateActivity={this.props.updateActivity}
+          deleteActivity={this.props.deleteActivity}
+        />
+      ) : (
       <Activity
         key={`activity-display-${timestamp}`}
         timestamp={timestamp}
@@ -22,33 +31,12 @@ class Home extends Component {
         editActivity={this.props.editActivity}
         isEditing={editingActivityTimestamp === timestamp}
         cancelEdit={this.props.cancelEdit}
-        deleteTag={this.props.deleteTag}
-        addTag={this.props.addTag}
       />
     );
 
     return (
       <div key={`activity-${timestamp}`}>
-        <CSSTransitionGroup
-          component="div"
-          transitionName="activity-edit-form"
-          transitionEnterTimeout={500}
-          transitionLeaveTimeout={500}
-        >
-          {activityElement}
-          {
-            editingActivityTimestamp === timestamp && (
-              <EditActivityForm
-                key={`edit-activity-${timestamp}`}
-                activity={activity}
-                timestamp={timestamp}
-                cancelEdit={this.props.cancelEdit}
-                updateActivity={this.props.updateActivity}
-              />
-            )
-          }
-
-        </CSSTransitionGroup>
+        {activityElement}
       </div>
     )
   }
@@ -92,8 +80,8 @@ class Home extends Component {
                   <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>{isYesterday ? 'Today' : 'Next day'}</a>
                 </Column>
               </Row>
-              <Row center className="pv">
-                <Column span={11}>
+              <Row center className="p">
+                <Column span={12}>
                   <AddActivityForm
                     addActivity={addActivity}
                   />
@@ -135,12 +123,10 @@ Home.propTypes = {
   chooseNextDay: PropTypes.func.isRequired,
   addActivity: PropTypes.func.isRequired,
   activityTimestamps: PropTypes.array.isRequired,
-  editingActivityTimestamp: PropTypes.func,
+  editingActivityTimestamp: PropTypes.string,
   deleteActivity: PropTypes.func.isRequired,
   editActivity: PropTypes.func.isRequired,
   cancelEdit: PropTypes.func.isRequired,
-  deleteTag: PropTypes.func.isRequired,
-  addTag: PropTypes.func.isRequired,
   updateActivity: PropTypes.func.isRequired,
   currentDayTimestamps: PropTypes.array.isRequired,
 }
