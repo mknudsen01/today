@@ -61,23 +61,32 @@ class Home extends Component {
         <div className="container">
           <Row center>
             <Column className="bg--clouds overflow-x--hidden box-shadow--5">
-              <Row className="mt p">
+              <Row className="mt">
+                <Column center>
+                  {currentDay.format('MMMM DD')}
+                </Column>
+              </Row>
+              <Row middle className="p">
                 <Column
-                  span={4}
+                  span={3}
                   onClick={isEarliestDay ? null: choosePreviousDay}
                 >
-                  <a className={`transition--3-10 ${isEarliestDay ? 'text--silver' : 'underline pointer'}`}>{isToday ? 'Yesterday' : 'Previous day'}</a>
+                  <a className={`transition--3-10 ${isEarliestDay ? 'text--silver' : 'underline pointer'}`}>{isToday ? 'Yesterday' : currentDay.clone().subtract('days', 1).format('ddd')}</a>
                 </Column>
                 <Column
                   center
+                  span={6}
                 >
-                  {isToday ? 'Today' : isYesterday ? 'Yesterday' : currentDay.format('MMMM DD, YYYY')}
+                  <div>
+                    {isToday ? 'Today' : isYesterday ? 'Yesterday' : currentDay.format('dddd')}
+                  </div>
                 </Column>
                 <Column
                   end
+                  span={3}
                   onClick={isToday ? null : chooseNextDay}
                 >
-                  <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>{isYesterday ? 'Today' : 'Next day'}</a>
+                  <a className={`transition--3-10 ${isToday ? 'text--silver' : 'underline pointer'}`}>{isYesterday ? 'Today' : currentDay.clone().add('days', 1).format('ddd')}</a>
                 </Column>
               </Row>
               <Row center className="p">
