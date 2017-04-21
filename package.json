@@ -1,0 +1,19 @@
+{
+  "name": "today-server",
+  "version": "1.0.0",
+  "description": "server for today app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mknudsen01/today.git"
+  },
+  "author": "mknudsen01",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mknudsen01/today/issues"
+  },
+  "homepage": "https://github.com/mknudsen01/today#readme"
+}
