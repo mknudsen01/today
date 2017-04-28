@@ -1,10 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
 class Tag extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { value } = this.props;
 

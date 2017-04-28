@@ -213,7 +213,7 @@ class App extends Component {
 
   choosePreviousDay() {
     const { currentDay } = this.state;
-    const isEarliestDay = +currentDay.startOf('day') === +moment().subtract('years', 1).startOf('day');
+    const isEarliestDay = +currentDay.startOf('day') === +moment().subtract(1, 'years').startOf('day');
 
     if (isEarliestDay) return;
 
@@ -250,8 +250,8 @@ class App extends Component {
     const { activitiesByTimestamp, currentDay, uid } = this.state;
 
     const isToday = +currentDay.startOf('day') === +moment().startOf('day');
-    const isYesterday = +currentDay.startOf('day') === +moment().subtract('days', 1).startOf('day');
-    const isEarliestDay = +currentDay.startOf('day') === +moment().subtract('years', 1).startOf('day');
+    const isYesterday = +currentDay.startOf('day') === +moment().subtract(1, 'days').startOf('day');
+    const isEarliestDay = +currentDay.startOf('day') === +moment().subtract(1, 'years').startOf('day');
 
     if (!uid) {
       return (

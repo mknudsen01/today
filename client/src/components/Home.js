@@ -27,7 +27,6 @@ class Home extends Component {
         key={`activity-display-${timestamp}`}
         timestamp={timestamp}
         activity={activity}
-        deleteActivity={this.props.deleteActivity}
         editActivity={this.props.editActivity}
         isEditing={editingActivityTimestamp === timestamp}
         cancelEdit={this.props.cancelEdit}

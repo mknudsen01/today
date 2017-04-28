@@ -9,7 +9,7 @@ class TagList extends Component {
     return (
       <div className="row row--baseline ph-">
       {
-        this.props.tags.map(tag => {
+        tags.map(tag => {
           return (
             <Tag
               key={tag}
