@@ -2,6 +2,39 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const session = require('express-session');
+const LocalStrategy = require('passport-local').Strategy
+
+
+// passport local strategy
+const user = {
+  username: 'user',
+  password: 'password',
+  id: 1
+}
+
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+    findUser(username, function (err, user) {
+      if (err) {
+        return done(err)
+      }
+      if (!user) {
+        return done(null, false)
+      }
+      if (password !== user.password  ) {
+        return done(null, false)
+      }
+      return done(null, user)
+    })
+  }
+))
+
+
+
+
+
+
+
 
 
 const app = express();
