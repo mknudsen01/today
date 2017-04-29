@@ -5,7 +5,7 @@ class Login extends Component {
     super(props);
 
     this.state = {
-      isLogin: false,
+      isLogin: true,
     }
 
     this.loginUser = this.loginUser.bind(this);
@@ -14,10 +14,11 @@ class Login extends Component {
 
   loginUser(e) {
     e.preventDefault();
-    const email = this.loginEmail.value;
-    const password = this.loginPassword.value;
 
-    this.props.loginUser({email, password});
+    //do verifications
+    const username = this.loginUsername.value;
+    const password = this.loginPassword.value;
+    this.props.loginUser({username, password});
   }
 
   createUser(e) {
@@ -83,9 +84,9 @@ class Login extends Component {
         className="col--12"
       >
         <input
-          type="email"
+          type="text"
           required
-          ref={(node) => this.loginEmail = node}
+          ref={(node) => this.loginUsername = node}
           placeholder="email"
           className="pv- ph- col--10"
         />
