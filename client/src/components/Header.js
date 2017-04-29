@@ -3,7 +3,24 @@ import React, { Component, PropTypes } from 'react';
 import Row from './layout/Row';
 import Column from './layout/Column';
 
+import ApiService from '../ApiService';
+
 class Header extends Component {
+
+  testApi() {
+    return ApiService.get('/test')
+      .then(res => console.log('res: ', res));
+  }
+
+  logoutApi() {
+    return ApiService.post('/logout')
+      .then(res => console.log('res: ', res));
+  }
+
+  authApi() {
+    return ApiService.get('/auth')
+      .then(res => console.log('res: ', res));
+  }
 
   render() {
     const { isLoggedIn = false, logout = null } = this.props;
@@ -22,6 +39,9 @@ class Header extends Component {
               )
             }
           </Row>
+          <div onClick={this.testApi}>Test api</div>
+          <div onClick={this.authApi}>auth api</div>
+          <div onClick={this.logoutApi}>logout api</div>
         </div>
       </div>
     );

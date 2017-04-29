@@ -16,6 +16,9 @@ import Login from './Login';
 import Home from './Home';
 
 
+import ApiService from '../ApiService';
+
+
 class App extends Component {
 
   constructor(props) {
@@ -142,8 +145,10 @@ class App extends Component {
     base.authWithPassword({email, password}, this.authHandler)
   }
 
-  loginUser({email, password}) {
-    this.authenticateWithPassword({email, password});
+  loginUser({username, password}) {
+    const path = encodeURI(`/login?username=${username}&password=${password}`)
+    ApiService.post(path)
+      .then(res => console.log('res: ', res));
   }
 
   createUser({email, password}) {
