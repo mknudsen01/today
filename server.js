@@ -1,71 +1,111 @@
+const bodyParser = require('body-parser');
 const express = require('express');
-const path = require('path');
 const helmet = require('helmet');
-const session = require('express-session');
 const LocalStrategy = require('passport-local').Strategy
+const morgan = require('morgan');
+const passport = require('passport');
+const path = require('path');
+const session = require('express-session');
 
-
-// passport local strategy
-const user = {
-  username: 'user',
-  password: 'password',
-  id: 1
-}
+var db = require('./db');
 
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    findUser(username, function (err, user) {
-      if (err) {
-        return done(err)
-      }
-      if (!user) {
-        return done(null, false)
-      }
-      if (password !== user.password  ) {
-        return done(null, false)
-      }
-      return done(null, user)
-    })
-  }
-))
+  function(username, password, cb) {
+    db.users.findByUsername(username, function(err, user) {
+      if (err) { return cb(err); }
+      if (!user) { return cb(null, false); }
+      if (user.password != password) { return cb(null, false); }
+      return cb(null, user);
+    });
+  })
+);
 
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
 
-
-
-
-
-
-
-
-const app = express();
-
-app.set('port', (process.env.PORT || 3001));
-
-app.use(helmet());
-app.use(express.static(path.join(__dirname, 'client/build')));
-
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
-}));
-
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-
-app.get('/test', function(req, res) {
-  console.log('==================')
-  console.log('requesting /test');
-  console.log('==================')
-  res.json({
-    'a': 'this is the result of /test'
+passport.deserializeUser(function(id, cb) {
+  db.users.findById(id, function (err, user) {
+    if (err) { return cb(err); }
+    cb(null, user);
   });
 });
 
+
+function authenticationMiddleware () {
+  return function (req, res, next) {
+    if (req.isAuthenticated()) {
+      return next()
+    }
+
+    res.sendStatus(401);
+  }
+}
+
+passport.authenticationMiddleware = authenticationMiddleware;
+
+const app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ secret: 'keyboards cat', resave: false, saveUninitialized: false }));
+app.use(morgan('combined'));
+
+// Initialize Passport and restore authentication state, if any, from the
+// session.
+app.use(passport.initialize());
+app.use(passport.session());
+
+// app.use(helmet());
+
+app.set('port', (process.env.PORT || 3001));
+
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+
+
+
+app.get('/test', function(req, res) {
+  res.json({
+    'a': 'this is the result of public /test'
+  });
+});
+
+app.post('/logout', function(req, res){
+  req.logout();
+  res.json({
+    a: 'logging you out'
+  })
+});
+
+app.post('/login',
+  function(req, res, next) {
+    console.log('attempting log in');
+    next();
+  },
+  passport.authenticate('local', { failureRedirect: '/login'}),
+  function(req, res) {
+    res.json({
+      a: 'you logged in successfully'
+    })
+  }
+);
+
+app.get('/login', function(req, res) {
+  res.json({
+    a: 'you are in need of logging in'
+  })
+})
+
+app.get('/auth',
+  passport.authenticationMiddleware(),
+  function(req, res) {
+    res.json({
+      a: 'you are logged in and can see logged in things.'
+    })
+  }
+)
+
 app.get('*', function (req, res) {
-  console.log('made a request, any old request');
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
