@@ -78,14 +78,11 @@ app.post('/logout', function(req, res){
 });
 
 app.post('/login',
-  function(req, res, next) {
-    console.log('attempting log in');
-    next();
-  },
   passport.authenticate('local', { failureRedirect: '/login'}),
   function(req, res) {
+    res.status(200);
     res.json({
-      a: 'you logged in successfully'
+      user: req.user,
     })
   }
 );
