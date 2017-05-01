@@ -5,43 +5,45 @@ import Column from './layout/Column';
 
 import ApiService from '../ApiService';
 
+import { Link } from 'react-router-dom';
+
 class Header extends Component {
+  constructor(props) {
+    super(props);
 
-  testApi() {
-    return ApiService.get('/test')
-      .then(res => console.log('res: ', res));
+    this.logout = this.logout.bind(this);
   }
 
-  logoutApi() {
+  logout() {
+    const { logout } = this.props;
+
     return ApiService.post('/logout')
-      .then(res => console.log('res: ', res));
-  }
-
-  authApi() {
-    return ApiService.get('/auth')
-      .then(res => console.log('res: ', res));
+      .then(res => logout());
   }
 
   render() {
-    const { isLoggedIn = false, logout = null } = this.props;
+    const { isLoggedIn = false } = this.props;
     return (
       <div className="container--full bg--clouds">
         <div className="container">
           <Row between className="pv">
             <Column span={6}>
-              Today, I...
+              {
+                isLoggedIn ? (
+                  <Link to="/dashboard">Today, I...</Link>
+                ) : (
+                  <Link to="/login">Today, I...</Link>
+                )
+              }
             </Column>
             {
               isLoggedIn && (
                 <Column span={4} end>
-                  <div className="cursor--pointer" onClick={logout}>Log out</div>
+                  <div className="cursor--pointer" onClick={this.logout}>Log out</div>
                 </Column>
               )
             }
           </Row>
-          <div onClick={this.testApi}>Test api</div>
-          <div onClick={this.authApi}>auth api</div>
-          <div onClick={this.logoutApi}>logout api</div>
         </div>
       </div>
     );
