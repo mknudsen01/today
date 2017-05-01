@@ -14,6 +14,13 @@ import Content from './Content'
 import base from '../base';
 import Login from './Login';
 import Home from './Home';
+import PrivateRoute from './PrivateRoute';
+import PropRoute from './PropRoute';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+} from 'react-router-dom'
 
 
 import ApiService from '../ApiService';
@@ -252,61 +259,58 @@ class App extends Component {
   }
 
   render() {
-    const { activitiesByTimestamp, currentDay, uid } = this.state;
+    const { activitiesByTimestamp, currentDay } = this.state;
 
     const isToday = +currentDay.startOf('day') === +moment().startOf('day');
     const isYesterday = +currentDay.startOf('day') === +moment().subtract(1, 'days').startOf('day');
     const isEarliestDay = +currentDay.startOf('day') === +moment().subtract(1, 'years').startOf('day');
 
-    if (!uid) {
-      return (
+    const isLoggedIn = !!(this.state.user && this.state.user.id);
+
+    return (
+      <Router>
         <section className="holy-grail--container">
           <Header
-            isLoggedIn={!!uid}
-            logout={this.logout}
+            isLoggedIn={isLoggedIn}
+            logout={this.logoutUser}
           />
           <Content>
-            <Login
-              loginUser={this.loginUser}
-              createUser={this.createUser}
-            />
+            <Switch>
+              <PropRoute
+                path="/login"
+                component={Login}
+                loginUser={this.loginUser}
+                createUser={this.createUser}
+                isLoggedIn={isLoggedIn}
+              />
+              <PrivateRoute
+                path="/dashboard"
+                component={Home}
+                isLoggedIn={isLoggedIn}
+                activitiesByTimestamp={activitiesByTimestamp}
+                currentDay={currentDay}
+                isToday={isToday}
+                isYesterday={isYesterday}
+                isEarliestDay={isEarliestDay}
+                choosePreviousDay={this.choosePreviousDay}
+                chooseNextDay={this.chooseNextDay}
+                addActivity={this.addActivity}
+                activityTimestamps={this.state.activityTimestamps}
+                editingActivityTimestamp={this.state.editingActivityTimestamp}
+                deleteActivity={this.deleteActivity}
+                editActivity={this.editActivity}
+                cancelEdit={this.cancelEdit}
+                deleteTag={this.deleteTag}
+                addTag={this.addTag}
+                updateActivity={this.updateActivity}
+                currentDayTimestamps={this.getCurrentDayTimestamps()}
 
+              />
+            </Switch>
           </Content>
           <Footer />
         </section>
-      )
-    }
-
-    return (
-      <section className="holy-grail--container">
-        <Header
-          isLoggedIn={!!uid}
-          logout={this.logout}
-        />
-        <Content>
-          <Home
-            activitiesByTimestamp={activitiesByTimestamp}
-            currentDay={currentDay}
-            isToday={isToday}
-            isYesterday={isYesterday}
-            isEarliestDay={isEarliestDay}
-            choosePreviousDay={this.choosePreviousDay}
-            chooseNextDay={this.chooseNextDay}
-            addActivity={this.addActivity}
-            activityTimestamps={this.state.activityTimestamps}
-            editingActivityTimestamp={this.state.editingActivityTimestamp}
-            deleteActivity={this.deleteActivity}
-            editActivity={this.editActivity}
-            cancelEdit={this.cancelEdit}
-            deleteTag={this.deleteTag}
-            addTag={this.addTag}
-            updateActivity={this.updateActivity}
-            currentDayTimestamps={this.getCurrentDayTimestamps()}
-
-          />
-        </Content>
-        <Footer />
-      </section>
+      </Router>
     );
   }
 }
