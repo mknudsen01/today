@@ -14,6 +14,20 @@ class Login extends Component {
     this.createUser = this.createUser.bind(this);
   }
 
+  componentDidMount() {
+    this.loginForm.addEventListener('keydown', this.enterListener.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.loginForm && this.loginForm.removeEventListener('keydown', this.enterListener)
+  }
+
+  enterListener(e) {
+    if (e.keyCode === 13) {
+      this.loginUser(e);
+    }
+  }
+
   loginUser(e) {
     e.preventDefault();
 
