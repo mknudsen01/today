@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Redirect } from 'react-router-dom';
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -38,6 +40,14 @@ class Login extends Component {
 
   render() {
     const { isLogin } = this.state;
+    const { isLoggedIn } = this.props;
+
+    if (isLoggedIn) {
+      return (
+        <Redirect to={'/dashboard'}/>
+      )
+    }
+
     const createUserForm = (
       <form
         className="col--12"
