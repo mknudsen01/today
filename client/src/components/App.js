@@ -43,6 +43,8 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.loginUser = this.loginUser.bind(this);
     this.createUser = this.createUser.bind(this);
+    this.setUser = this.setUser.bind(this);
+    this.logoutUser = this.logoutUser.bind(this);
   }
 
   state = {
@@ -51,6 +53,7 @@ class App extends Component {
     currentDay: moment().startOf('day'),
     editingActivityTimestamp: null,
     uid: null,
+    user: null,
   };
 
   connectDatabase(uid) {
@@ -78,6 +81,12 @@ class App extends Component {
       activitiesByTimestamp: {},
       activityTimestamps: [],
     });
+  }
+
+  logoutUser() {
+    this.setState({
+      user: null,
+    })
   }
 
   componentDidMount() {
@@ -128,6 +137,12 @@ class App extends Component {
     }
   }
 
+  setUser(user = null) {
+    this.setState({
+      user: user
+    })
+  }
+
   authHandler(err, authData) {
     console.log('authData: ', authData);
     if (err) {
@@ -155,7 +170,7 @@ class App extends Component {
   loginUser({username, password}) {
     const path = encodeURI(`/login?username=${username}&password=${password}`)
     ApiService.post(path)
-      .then(res => console.log('res: ', res));
+      .then(res => this.setUser(res.user));
   }
 
   createUser({email, password}) {
