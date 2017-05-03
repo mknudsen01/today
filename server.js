@@ -5,18 +5,15 @@ const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
 const passport = require('./auth');
+var db = require('./db/models');
 
-var db = require('./db');
-
-
-
-
-
-
-
-
-
-
+// force: true will DROP THE ENTIRE DATABASE whenever you restart the server
+// it is useful for development while you're trying to nail down your schema.
+// but once you're happy with the schema, stop using this and instead use
+// migrations. use the sequelize sql log and create migrations with it.
+if (process.env.NODE_ENV !== "production") {
+  db.sequelize.sync({force: true, logging: console.log});
+}
 
 const app = express();
 
