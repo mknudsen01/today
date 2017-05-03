@@ -34,6 +34,7 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 
+require('./routes')(app);
 
 app.get('/test', function(req, res) {
   res.json({
